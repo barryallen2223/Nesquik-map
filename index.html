@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://use.fontawesome.com/releases/v6.4.0/js/all.js"></script>
+    <title>Mapa</title>
+    <!-- <script src="./js/map.js"></script> -->
+    <script>
+        var markers = [];
+        let map;
+        function initMap() {
+            const options = {
+                zoom: 12,
+                center: { lat: 6.2476, lng: -75.5658 },
+                mapId: '122c8cd93cebd911',
+                disableDefaultUI: true, // a way to quickly hide all controls
+                streetViewControl: false,
+                mapTypeControl: false
+            }
+
+            map = new google.maps.Map(document.getElementById("map"), options);
+            const marker = new google.maps.Marker({});
+
+            for (const property of properties) {
+                if (property.visibility == 0) {
+                    const advancedMarkerView = new google.maps.marker.AdvancedMarkerView({
+                        map,
+                        content: buildContent(property),
+                        position: property.position,
+                        title: property.description,
+                    });
+                    const element = advancedMarkerView.element;
+
+                    /* ["focus", "pointerenter"].forEach((event) => {
+                        element.addEventListener(event, () => {
+                            highlight(advancedMarkerView, property);
+                        });
+                    });*/
+                    ["blur", "pointerleave"].forEach((event) => {
+                        element.addEventListener(event, () => {
+                            unhighlight(advancedMarkerView, property);
+                        });
+                    });
+
+                    advancedMarkerView.addListener("click", (event) => {
+                        highlight(advancedMarkerView, property);
+                    });
+                    markers.push(advancedMarkerView);
+                } else {
+                    markers.push(advancedMarkerView);
+                }
+            }
+        }
+
+        function reDrawMap() {
+            const options = {
+                zoom: 12,
+                center: { lat: 6.2476, lng: -75.5658 },
+                mapId: '122c8cd93cebd911',
+                disableDefaultUI: true, // a way to quickly hide all controls
+                streetViewControl: false,
+                mapTypeControl: false
+            }
+            map = new google.maps.Map(document.getElementById("map"), options);
+            const marker = new google.maps.Marker({});
+
+            for (const property of properties) {
+                // Bathroom
+                if (property.visibility == 1) {
+                    if (property.bathroom == 1) {
+                        const advancedMarkerView = new google.maps.marker.AdvancedMarkerView({
+                            map,
+                            content: buildContent(property),
+                            position: property.position,
+                            title: property.description,
+                        });
+                        const element = advancedMarkerView.element;
+
+                        ["blur", "pointerleave"].forEach((event) => {
+                            element.addEventListener(event, () => {
+                                unhighlight(advancedMarkerView, property);
+                            });
+                        });
+
+                        advancedMarkerView.addListener("click", (event) => {
+                            highlight(advancedMarkerView, property);
+                        });
+                        markers.push(advancedMarkerView);
+                    }
+                } 
+                // chargePoint
+                if (property.visibility == 2) {
+                    if (property.chargePoint == 1) {
+                        const advancedMarkerView = new google.maps.marker.AdvancedMarkerView({
+                            map,
+                            content: buildContent(property),
+                            position: property.position,
+                            title: property.description,
+                        });
+                        const element = advancedMarkerView.element;
+
+                        /* ["focus", "pointerenter"].forEach((event) => {
+                            element.addEventListener(event, () => {
+                                highlight(advancedMarkerView, property);
+                            });
+                        });*/
+                        ["blur", "pointerleave"].forEach((event) => {
+                            element.addEventListener(event, () => {
+                                unhighlight(advancedMarkerView, property);
+                            });
+                        });
+
+                        advancedMarkerView.addListener("click", (event) => {
+                            highlight(advancedMarkerView, property);
+                        });
+                        markers.push(advancedMarkerView);
+                    }
+                }
+                // accessibleEntrance
+                if (property.visibility == 3) {
+                    if (property.accessibleEntrance == 1) {
+                        const advancedMarkerView = new google.maps.marker.AdvancedMarkerView({
+                            map,
+                            content: buildContent(property),
+                            position: property.position,
+                            title: property.description,
+                        });
+                        const element = advancedMarkerView.element;
+
+                        /* ["focus", "pointerenter"].forEach((event) => {
+                            element.addEventListener(event, () => {
+                                highlight(advancedMarkerView, property);
+                            });
+                        });*/
+                        ["blur", "pointerleave"].forEach((event) => {
+                            element.addEventListener(event, () => {
+                                unhighlight(advancedMarkerView, property);
+                            });
+                        });
+
+                        advancedMarkerView.addListener("click", (event) => {
+                            highlight(advancedMarkerView, property);
+                        });
+                        markers.push(advancedMarkerView);
+                    }
+                }
+            }
+        }
+
+        function highlight(markerView, property) {
+            markerView.content.classList.add("highlight");
+            markerView.element.style.zIndex = 1;
+        }
+
+        function unhighlight(markerView, property) {
+            markerView.content.classList.remove("highlight");
+            markerView.element.style.zIndex = "";
+        }
+
+        function buildContent(property) {
+            const content = document.createElement("div");
+
+            content.classList.add("property");
+            const rating = parseFloat(property.rating);
+            const fullStars = Math.floor(rating);
+            const halfStars = rating - fullStars;
+            const emptyStars = 5 - fullStars - halfStars;
+            content.innerHTML = `
+            <div id="markerIcon" class="icon">
+                <i aria-hidden="true" class="fa fa-icon fa-${property.type}" title="${property.type}"></i>
+                <span class="fa-sr-only">${property.type}</span>
+            </div>
+            <div id="markerDetails" class="details">
+                <div class="title">${property.title}</div>
+                <div class="address">${property.address}</div>
+                <div class="features">
+                    <div>
+                        <span id="rating">Puntuación</span>
+                        ${fullStars > 0 ? `<i aria-hidden="true" class="fa fa-star fa-lg star" title="rating"></i>` : ''}
+                        ${Array(fullStars - 1).fill().map(() => `<i aria-hidden="true" class="fa fa-star fa-lg star" title="rating"></i>`).join('')}
+                        ${halfStars > 0 ? `<i aria-hidden="true" class="fa-solid fa-star-half-stroke fa-lg star" title="rating"></i>` : ''}
+                        <span class="fa-sr-only">rating</span>
+                        ${fullStars == 0 && halfStars == 0 ? `<i aria-hidden="true" class="fa-regular fa-star fa-lg star" title="rating"></i>` : ''}
+                    </div>
+                    <div>
+                        <span>Baño accesible</span>
+                        <i aria-hidden="true" class="fa-solid fa-toilet fa-lg bathroom" title="bathroom"></i>
+                        ${property.bathroom ? `<i aria-hidden="true" class="fa fa-check-circle fa-lg check-circle" title="bath"></i>` : `<i aria-hidden="true" class="fa fa-times-circle fa-lg times-circle" title="bath"></i>`}
+                        <span class="fa-sr-only">bathroom</span>
+                    </div>
+                    <div>
+                        <span>Puntos de carga</span>
+                        <i aria-hidden="true" class="fa-solid fa-bolt-lightning fa-lg chargePoint" title="chargePoint"></i>
+                        ${property.chargePoint ? `<i aria-hidden="true" class="fa fa-check-circle fa-lg check-circle" title="charge"></i>` : `<i aria-hidden="true" class="fa fa-times-circle fa-lg times-circle" title="charge"></i>`}
+                        <span class="fa-sr-only">chargePoint</span>
+                    </div>
+                    <div>
+                        <span>Entrada accesible</span>
+                        <i aria-hidden="true" class="fa fa-wheelchair fa-lg wheelchair" title="ramp"></i>
+                        ${property.accessibleEntrance ? `<i aria-hidden="true" class="fa fa-check-circle fa-lg check-circle" title="ramp"></i>` : `<i aria-hidden="true" class="fa fa-times-circle fa-lg times-circle" title="ramp"></i>`}
+                        <span class="fa-sr-only">ramp</span>
+                    </div>
+                </div>
+            </div>
+            `;
+            return content;
+        }
+        let searchable = [
+            'Universidad EAFIT',
+            'Parque Explora',
+            'Relleno #1',
+            'Relleno #2',
+            'Relleno #3',
+            'Relleno #4',
+            'Relleno #5',
+        ];
+        const locations = [
+            { lat: 6.200337, lng: -75.578468 },
+            { lat: 6.270302, lng: -75.565674 },
+        ];
+        const properties = [
+            {
+                address: "Calle 7 Sur, El Poblado, Medellin, Antioquia",
+                description: "",
+                title: searchable[0],
+                //title: "Universidad EAFIT",
+                type: "university",
+                rating: 2.5,
+                bathroom: 1,
+                chargePoint: 0,
+                accessibleEntrance: 1,
+                position: locations[0],
+                visibility: 0,
+            },
+            {
+                address: "Carrera 52, Aranjuez, Medellin, Antioquia",
+                description: "",
+                //title: "Parque Explora",
+                title: searchable[1],
+                type: "building",
+                rating: 3.5,
+                bathroom: 0,
+                chargePoint: 1,
+                accessibleEntrance: 0,
+                position: locations[1],
+                visibility: 0,
+            },
+        ];
+        window.initMap = initMap;
+        function getClickedOpt(opt) {
+            if (opt == 'all') {
+                location.reload();
+                //editVisibility(0);
+            }
+            if (opt == 'bathrooms') {
+                // visibility: 1 → bathroom → se recorre el estado del bathroom y solo esos se muestran
+                editVisibility(1);
+                reDrawMap();
+            }
+            if (opt == 'chargePoints') {
+                // visibility: 2 → chargePoings → se recorre el estado del chargePoints y solo esos se muestran
+                editVisibility(2);
+                reDrawMap();
+            }
+            if (opt == 'accessible') {
+                // visibility: 3 → accessible → se recorre el estado del accessible y solo esos se muestran
+                editVisibility(3);
+                reDrawMap();
+            }
+        }
+        function editVisibility(state) {
+            for (const property of properties) {
+                property.visibility = state;
+            }
+        }
+
+        console.warn = () => { };
+    </script>
+</head>
+
+<body>
+    <header class="header">
+        <img class="logo-img" src="assets/logoMatt.png" style="width: 60px; height: 60px;" alt="">
+        <div class="container">
+            <div class="wrapper show">
+                <input type="text" name="search" id="search" placeholder="Type to search" autocomplete="chrome-off">
+                <!-- <button><i class="fa fa-search"></i></button> -->
+                <div class="results">
+                    <ul></ul>
+                </div>
+            </div>
+        </div>
+        <!-- <a href="#" class="logo">Club2G by Matt</a> -->
+        <nav class="navbar">
+            <a href="#" onclick="getClickedOpt('all')"><i class="fa fa-globe" aria-hidden="true"></i> Todos</a>
+            <a href="#" onclick="getClickedOpt('bathrooms')"><i class="fa-solid fa-toilet"></i> Baños</a>
+            <a href="#" onclick="getClickedOpt('chargePoints')"><i class="fa-solid fa-bolt-lightning"></i> Puntos de
+                carga</a>
+            <a href="#" onclick="getClickedOpt('accessible')"><i aria-hidden="true"
+                    class="fa fa-wheelchair fa-lg wheelchair"></i> Entrada
+                accesible</a>
+
+            <div id="menu-btn" class="fas fa-bars"></div>
+        </nav>
+    </header>
+    <script src="js/menu.js"></script>
+    <div id="map"></div>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOWx1PkAqJP1slIm13vGaezmS6ERahMYs&callback=initMap&libraries=localContext,marker&v=beta"></script>
+</body>
+
+</html>

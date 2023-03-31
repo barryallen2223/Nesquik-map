@@ -1,0 +1,22 @@
+var properties = [
+    {
+        "address": "Calle 7 Sur, El Poblado, Medellin, Antioquia",
+        "description": " ",
+        "title": "Universidad EAFIT",
+        "type": "university",
+        "rating": 1.5,
+        "wheelchair": 0,
+        "bathroom": 0,
+        "position": {}
+    },
+    {
+        "address": "Carrera 52, Aranjuez, Medellin, Antioquia",
+        "description": "",
+        "title": "Parque Explora",
+        "type": "building",
+        "rating": 1,
+        "wheelchair": 1,
+        "bathroom": 1,
+        "position": {}
+    }
+]
