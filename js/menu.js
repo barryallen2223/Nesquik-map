@@ -33,7 +33,7 @@ function renderResults(results) {
 
     const content = results
         .map((item) => {
-            return `<a style="color: whitesmoke; text-decoration: none;" href="#?${item}"><li>${item}</li></a>`;
+            return `<a style="color: whitesmoke; text-decoration: none;" onclick="${reDrawMap(item)}" href="#"><li>${item}</li></a>`;
         })
         .join('');
 
