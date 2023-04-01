@@ -57,7 +57,7 @@
             }
         }
 
-        function reDrawMap() {
+        function reDrawMap(titleName) {
             const options = {
                 zoom: 12,
                 center: { lat: 6.2476, lng: -75.5658 },
@@ -70,60 +70,91 @@
             const marker = new google.maps.Marker({});
 
             for (const property of properties) {
-                // Bathroom
-                if (property.visibility == 1) {
-                    if (property.bathroom == 1) {
-                        const advancedMarkerView = new google.maps.marker.AdvancedMarkerView({
-                            map,
-                            content: buildContent(property),
-                            position: property.position,
-                            title: property.description,
-                        });
-                        const element = advancedMarkerView.element;
-
-                        ["blur", "pointerleave"].forEach((event) => {
-                            element.addEventListener(event, () => {
-                                unhighlight(advancedMarkerView, property);
+                if (titleName == null) {
+                    // Bathroom
+                    if (property.visibility == 1) {
+                        if (property.bathroom == 1) {
+                            const advancedMarkerView = new google.maps.marker.AdvancedMarkerView({
+                                map,
+                                content: buildContent(property),
+                                position: property.position,
+                                title: property.description,
                             });
-                        });
+                            const element = advancedMarkerView.element;
 
-                        advancedMarkerView.addListener("click", (event) => {
-                            highlight(advancedMarkerView, property);
-                        });
-                        markers.push(advancedMarkerView);
-                    }
-                } 
-                // chargePoint
-                if (property.visibility == 2) {
-                    if (property.chargePoint == 1) {
-                        const advancedMarkerView = new google.maps.marker.AdvancedMarkerView({
-                            map,
-                            content: buildContent(property),
-                            position: property.position,
-                            title: property.description,
-                        });
-                        const element = advancedMarkerView.element;
+                            ["blur", "pointerleave"].forEach((event) => {
+                                element.addEventListener(event, () => {
+                                    unhighlight(advancedMarkerView, property);
+                                });
+                            });
 
-                        /* ["focus", "pointerenter"].forEach((event) => {
-                            element.addEventListener(event, () => {
+                            advancedMarkerView.addListener("click", (event) => {
                                 highlight(advancedMarkerView, property);
                             });
-                        });*/
-                        ["blur", "pointerleave"].forEach((event) => {
-                            element.addEventListener(event, () => {
-                                unhighlight(advancedMarkerView, property);
+                            markers.push(advancedMarkerView);
+                        }
+                    }
+                    // chargePoint
+                    if (property.visibility == 2) {
+                        if (property.chargePoint == 1) {
+                            const advancedMarkerView = new google.maps.marker.AdvancedMarkerView({
+                                map,
+                                content: buildContent(property),
+                                position: property.position,
+                                title: property.description,
                             });
-                        });
+                            const element = advancedMarkerView.element;
 
-                        advancedMarkerView.addListener("click", (event) => {
-                            highlight(advancedMarkerView, property);
-                        });
-                        markers.push(advancedMarkerView);
+                            /* ["focus", "pointerenter"].forEach((event) => {
+                                element.addEventListener(event, () => {
+                                    highlight(advancedMarkerView, property);
+                                });
+                            });*/
+                            ["blur", "pointerleave"].forEach((event) => {
+                                element.addEventListener(event, () => {
+                                    unhighlight(advancedMarkerView, property);
+                                });
+                            });
+
+                            advancedMarkerView.addListener("click", (event) => {
+                                highlight(advancedMarkerView, property);
+                            });
+                            markers.push(advancedMarkerView);
+                        }
+                    }
+                    // accessibleEntrance
+                    if (property.visibility == 3) {
+                        if (property.accessibleEntrance == 1) {
+                            const advancedMarkerView = new google.maps.marker.AdvancedMarkerView({
+                                map,
+                                content: buildContent(property),
+                                position: property.position,
+                                title: property.description,
+                            });
+                            const element = advancedMarkerView.element;
+
+                            /* ["focus", "pointerenter"].forEach((event) => {
+                                element.addEventListener(event, () => {
+                                    highlight(advancedMarkerView, property);
+                                });
+                            });*/
+                            ["blur", "pointerleave"].forEach((event) => {
+                                element.addEventListener(event, () => {
+                                    unhighlight(advancedMarkerView, property);
+                                });
+                            });
+
+                            advancedMarkerView.addListener("click", (event) => {
+                                highlight(advancedMarkerView, property);
+                            });
+                            markers.push(advancedMarkerView);
+                        }
                     }
                 }
-                // accessibleEntrance
-                if (property.visibility == 3) {
-                    if (property.accessibleEntrance == 1) {
+
+                // search title option
+                else {
+                    if (property.title == titleName) {
                         const advancedMarkerView = new google.maps.marker.AdvancedMarkerView({
                             map,
                             content: buildContent(property),
@@ -132,11 +163,6 @@
                         });
                         const element = advancedMarkerView.element;
 
-                        /* ["focus", "pointerenter"].forEach((event) => {
-                            element.addEventListener(event, () => {
-                                highlight(advancedMarkerView, property);
-                            });
-                        });*/
                         ["blur", "pointerleave"].forEach((event) => {
                             element.addEventListener(event, () => {
                                 unhighlight(advancedMarkerView, property);
@@ -213,7 +239,7 @@
         let searchable = [
             'Universidad EAFIT',
             'Parque Explora',
-            'Relleno #1',
+            'Biblioteca España',
             'Relleno #2',
             'Relleno #3',
             'Relleno #4',
@@ -222,6 +248,7 @@
         const locations = [
             { lat: 6.200337, lng: -75.578468 },
             { lat: 6.270302, lng: -75.565674 },
+            { lat: 6.29996, lng: -75.54355 },
         ];
         const properties = [
             {
@@ -250,6 +277,19 @@
                 position: locations[1],
                 visibility: 0,
             },
+            {
+                address: "Cl. 107 #33a-41, Santo Domingo Savio I, Medellín, Popular, Medellín, Antioquia",
+                description: "",
+                //title: "Parque Explora",
+                title: searchable[2],
+                type: "building",
+                rating: 3.5,
+                bathroom: 0,
+                chargePoint: 1,
+                accessibleEntrance: 0,
+                position: locations[2],
+                visibility: 0,
+            },
         ];
         window.initMap = initMap;
         function getClickedOpt(opt) {
@@ -260,18 +300,19 @@
             if (opt == 'bathrooms') {
                 // visibility: 1 → bathroom → se recorre el estado del bathroom y solo esos se muestran
                 editVisibility(1);
-                reDrawMap();
+                reDrawMap(null);
             }
             if (opt == 'chargePoints') {
                 // visibility: 2 → chargePoings → se recorre el estado del chargePoints y solo esos se muestran
                 editVisibility(2);
-                reDrawMap();
+                reDrawMap(null);
             }
             if (opt == 'accessible') {
                 // visibility: 3 → accessible → se recorre el estado del accessible y solo esos se muestran
                 editVisibility(3);
-                reDrawMap();
+                reDrawMap(null);
             }
+
         }
         function editVisibility(state) {
             for (const property of properties) {
