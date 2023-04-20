@@ -1,92 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Sticky Header with Left and Right Panels</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <script>
-        function initMap() {
-
-            const options = {
-                zoom: 12,
-                center: { lat: 6.2476, lng: -75.5658 },
-                mapId: '122c8cd93cebd911',
-                disableDefaultUI: true, // a way to quickly hide all controls
-                streetViewControl: false,
-                mapTypeControl: false
-            }
-
-            map = new google.maps.Map(document.getElementById("map"), options);
-        }
-    </script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogIn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <header>
-        <h1>Nesquik</h1>
-        <div class="search-container">
-            <input type="text" placeholder="Search place...">
-            <i class="fa fa-search"></i>
-        </div>
-        <nav>
-            <a href="#">Todos <i class="fa-solid fa-globe"></i></a>
-            <a href="#">Baños accesibles <i class="fa-solid fa-toilet"></i></a>
-            <a href="#">Puntos de carga <i class="fa-solid fa-bolt-lightning"></i></a>
-            <a href="#">Entrada accesible <i class="fa-solid fa-wheelchair"></i></a>
-        </nav>
-    </header>
-
-    <div id="left-panel">
-        <div class="section section-user">
-            <div class="user-info">
-                <img src="assets/images/user.jpg" alt="User Picture">
-                <h3>John Deez</h3>
-            </div>
-        </div>
-        <div class="section section-marker">
-            <p>Nuevo marcador <i class="fa-solid fa-location-dot"></i></p>
-            <button class="markerBtn"><i class="fa-solid fa-arrow-right"></i></button>
-        </div>
-        <div class="section section-challenges">
-            <button class="challengeBtn">Retos <i class="fa-solid fa-flag"></i></button>
-        </div>
-        <div class="section section-leaderboard">
-            <h3>Tabla de clasificación</h3>
-            <hr>
-            <div class="leaderboard-users">
-                <div class="user">
-                    <span class="user-position-1"><i class="fa-solid fa-medal"></i></span>
-                    <span class="user-name">John Deez</span>
-                    <span class="user-points">1000 points</span>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form action="#">
+                <h1>Crear una cuenta</h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
-                <div class="user">
-                    <span class="user-position-2"><i class="fa-solid fa-medal"></i></span>
-                    <span class="user-name">Jane Smith</span>
-                    <span class="user-points">750 points</span>
+                <span>o usa tu correo personal para la registración</span>
+                <input type="text" placeholder="Nombre" />
+                <input type="email" placeholder="Email" />
+                <input type="password" placeholder="Contraseña" />
+                <button>Registrarse</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form action="#">
+                <h1>Iniciar sesión</h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
-                <div class="user">
-                    <span class="user-position-3"><i class="fa-solid fa-medal"></i></span>
-                    <span class="user-name">Bob Johnson</span>
-                    <span class="user-points">500 points</span>
+                <span>o usa tus credenciales</span>
+                <input type="email" id="username" placeholder="Email" />
+                <input type="password" id="pwd" placeholder="Contraseña" />
+                <a href="#">¿Olvidaste tu contraseña?</a>
+                <button id="loginBtn">Log In</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>¡Bienvenido de nuevo!</h1>
+                    <p>Si ya tienes una cuenta con nosotros, haz clic en Log In para ingresar</p>
+                    <button class="ghost" id="signIn">Log In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>¡Hola, 2G!</h1>
+                    <p>Si aun no haces parte de nuestro extraordinario equipo, haz clic en Registrarse para iniciar la experiencia</p>
+                    <button class="ghost" id="signUp">Registrarse</button>
                 </div>
             </div>
         </div>
-
-        <div class="section section-logout">
-            <button class="logutBtn">Log Out <i class="fa-solid fa-right-from-bracket"></i></button>
-        </div>
     </div>
 
-    <div id="right-panel">
-        <div id="map"></div>
-        <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOWx1PkAqJP1slIm13vGaezmS6ERahMYs&callback=initMap&libraries=localContext,marker&v=beta"></script>
-    </div>
+    <script src="script.js"></script>
 </body>
 
 </html>
