@@ -16,6 +16,6 @@ signInButton.addEventListener('click', () => {
 
 logBtn.addEventListener('click', () => {
     if (email.value == "admin" && pwd.value == "1234") {
-        window.location.href = "../menu/index.html";
+        window.location.href = "mainPage/index.html";
     }
 });
