@@ -1,0 +1,13 @@
+Cosas pendientes
+-----------------------------------------------------------
+[+] Sign In y Sign Out normal
+[+] Implementar DOM para la pagina principal para cambiar el usuario por el que se logeo
+[-] Crear otra vez marcadores
+[-] Conectar front con el back
+[-] Login con google
+[-] Elegir retos pero solo uno a la vez (puede ser un atributo del usuario en la base de datos)
+[-] Capacidad de hacer los markers clickeables
+[-] Agregar una vista de detalles sobre el marcador en ventana modal
+
+[-] Tiempo para los retos
+[-] Cambiar el color de los marcadores basado en que tan accesibles sean
