@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <link rel="stylesheet" href="assets/css/style.css">
     <script>
@@ -21,8 +20,57 @@
                 mapTypeControl: false
             }
 
-            map = new google.maps.Map(document.getElementById("map"), options);
+            const searchable = JSON.parse(localStorage.getItem('searchable'));
+            const positions = JSON.parse(localStorage.getItem('positions'));
+            const locations = JSON.parse(localStorage.getItem('locations'));
+            console.log(locations);
+            const map = new google.maps.Map(document.getElementById("map"), options);
+            const icon = document.createElement("div");
+
+            const infoWindow = new google.maps.InfoWindow();
+            locations.forEach(({ position, title, type, address, description }, i) => {
+                const icon = document.createElement("div");
+                icon.innerHTML = `<i aria-hidden="true" style="font-size: 18px; justify-content: center;" class="fa-solid fa-${type}" title="${type}"></i>`;
+
+                const pinView = new google.maps.marker.PinView({
+                    glyph: icon,
+                    glyphColor: "#FFF",
+                    background: "#7F00A2",
+                    borderColor: "#672979",
+                    scale: 1.2,
+                });
+
+                const marker = new google.maps.marker.AdvancedMarkerView({
+                    position,
+                    map,
+                    title: `${title}`,
+                    content: pinView.element,
+                });
+
+                // Add a click listener for each marker, and set up the info window.
+                marker.addListener("click", ({ domEvent, latLng }) => {
+                    const { target } = domEvent;
+
+                    const cont = document.querySelector('.container');
+                    const modalClose = document.querySelector('.btnHide');
+
+                    // Show the modal when a button is clicked
+                    cont.style.display = 'block';
+                    document.querySelector('.placeName').textContent = address;
+                    document.querySelector('.commentSection').textContent = description;
+
+                    modalClose.addEventListener('click', () => {
+                        cont.style.display = 'none';
+                    });
+
+                    infoWindow.close();
+                    infoWindow.setContent(marker.title);
+                    //infoWindow.open(marker.map, marker);
+                });
+            });
+
         }
+        window.initMap = initMap;
     </script>
 </head>
 
@@ -81,13 +129,47 @@
             <button class="logutBtn">Log Out <i class="fa-solid fa-right-from-bracket"></i></button>
         </div>
     </div>
-
+    <div class="container">
+        <div class="tab_box">
+            <button class="tab_btn active">General</button>
+            <button class="tab_btn">Comentarios</button>
+            <button class="btnHide" id="close-modal-button">&times;</button>
+            <div class="line"></div>
+        </div>
+        <div class="content_box">
+            <div class="content active">
+                <h2>General</h2>
+                <p class="placeName">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi animi quis cumque
+                    earum velit cum?</p>
+            </div>
+            <div class="content">
+                <h2>Comentarios</h2>
+                <p class="commentSection">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi animi quis cumque earum velit cum?</p>
+            </div>
+        </div>
+    </div>
     <div id="right-panel">
         <div id="map"></div>
         <script
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOWx1PkAqJP1slIm13vGaezmS6ERahMYs&callback=initMap&libraries=localContext,marker&v=beta"></script>
     </div>
     <script src="assets/js/script.js"></script>
+    <script type="module" src="assets/js/firebaseJs.js"></script>
+    <script>
+        const tabs = document.querySelectorAll('.tab_btn');
+        const all_content = document.querySelectorAll('.content');
+        tabs.forEach((tab, index) => {
+            tab.addEventListener('click', (e) => {
+                tabs.forEach(tab => { tab.classList.remove('active') });
+                tab.classList.add('active');
+                var line = document.querySelector('.line');
+                line.style.width = e.target.offsetWidth + "px";
+                line.style.left = e.target.offsetLeft + "px";
+                all_content.forEach(content => { content.classList.remove('active') });
+                all_content[index].classList.add('active');
+            });
+        })
+    </script>
 </body>
 
 </html>
