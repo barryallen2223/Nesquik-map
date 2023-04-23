@@ -28,7 +28,7 @@
             const icon = document.createElement("div");
 
             const infoWindow = new google.maps.InfoWindow();
-            locations.forEach(({ position, title, type, address, description }, i) => {
+            locations.forEach(({ position, title, type, address, comments }, i) => {
                 const icon = document.createElement("div");
                 icon.innerHTML = `<i aria-hidden="true" style="font-size: 18px; justify-content: center;" class="fa-solid fa-${type}" title="${type}"></i>`;
 
@@ -50,14 +50,30 @@
                 // Add a click listener for each marker, and set up the info window.
                 marker.addListener("click", ({ domEvent, latLng }) => {
                     const { target } = domEvent;
-
                     const cont = document.querySelector('.container');
                     const modalClose = document.querySelector('.btnHide');
-
+                    const commentOwner = document.querySelectorAll('.commentOwner');
+                    const commentContent = document.querySelectorAll('.commentContent');
                     // Show the modal when a button is clicked
                     cont.style.display = 'block';
                     document.querySelector('.placeName').textContent = address;
-                    document.querySelector('.commentSection').textContent = description;
+                    const commentsContainer = document.querySelector('.commentsContainer');
+                    commentsContainer.innerHTML = '';
+
+                    comments.forEach((comment) => {
+                        const [owner, content] = comment.split(' | ');
+
+                        const ownerEl = document.createElement('p');
+                        ownerEl.classList.add('commentOwner');
+                        ownerEl.textContent = owner;
+
+                        const contentEl = document.createElement('p');
+                        contentEl.classList.add('commentContent');
+                        contentEl.textContent = content;
+
+                        commentsContainer.appendChild(ownerEl);
+                        commentsContainer.appendChild(contentEl);
+                    });
 
                     modalClose.addEventListener('click', () => {
                         cont.style.display = 'none';
@@ -67,6 +83,7 @@
                     infoWindow.setContent(marker.title);
                     //infoWindow.open(marker.map, marker);
                 });
+
             });
 
         }
@@ -139,12 +156,14 @@
         <div class="content_box">
             <div class="content active">
                 <h2>General</h2>
-                <p class="placeName">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi animi quis cumque
-                    earum velit cum?</p>
+                <p class="placeName"></p>
             </div>
             <div class="content">
                 <h2>Comentarios</h2>
-                <p class="commentSection">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi animi quis cumque earum velit cum?</p>
+                <div class="commentsContainer">
+                    <p class="commentOwner"></p>
+                    <p class="commentContent"></p>u
+                </div>
             </div>
         </div>
     </div>
