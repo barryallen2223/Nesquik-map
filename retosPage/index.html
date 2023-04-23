@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar un punto</title>
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="form">
+            <h3>Capture the flag</h3>
+            <input type="text" class="place" placeholder="Título del reto" id="challTitle">
+            <input type="text" class="place" placeholder="Buscar ubicacion" id="placeName">
+            <div class="btn-container">
+                <button id="Insbtn" class="btnsEdit">Añadir</button>
+                <button id="Delbtn" class="btnsEdit">Eliminar</button>
+            </div>
+            <div class="list">
+                <p id="listPlaces"></p>
+            </div>
+            <button id="Sendbtn" class="btnFinish">Terminar</button>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+    <script type="module" src="firebase.js"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOWx1PkAqJP1slIm13vGaezmS6ERahMYs&callback=searchBar&libraries=localContext,marker,places&v=beta"></script>
+</body>
+
+</html>

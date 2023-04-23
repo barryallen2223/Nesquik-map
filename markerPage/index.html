@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar un punto</title>
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="form">
+            <h3>Añadir un punto</h3>
+            <input type="text" class="place" placeholder="Search location" id="placeName">
+            <div class="opt">
+                <h2>Baño accesible</h2>
+                <label class="switch">
+                    <input type="checkbox" id="bathroom" value="1">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="opt">
+                <h2>Puntos de carga</h2>
+                <label class="switch">
+                    <input type="checkbox" id="charge" value="1">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="opt">
+                <h2>Entrada accesible</h2>
+                <label class="switch">
+                    <input type="checkbox" id="entrance" value="1">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <!-- <input type="text" class="place" placeholder="Rating" id="rating"> -->
+            <div class="rating">
+                <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
+                <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
+                <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
+                <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
+                <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+            </div>
+            <input type="text" class="place" placeholder="Additional comments" id="comments">
+            <button id="Insbtn">Añadir marcador</button>
+            <button id="Selbtn">Volver</button>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+    <script type="module" src="firebase.js"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOWx1PkAqJP1slIm13vGaezmS6ERahMYs&callback=searchBar&libraries=localContext,marker,places&v=beta"></script>
+</body>
+
+</html>

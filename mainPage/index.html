@@ -71,9 +71,22 @@
                         contentEl.classList.add('commentContent');
                         contentEl.textContent = content;
 
-                        commentsContainer.appendChild(ownerEl);
-                        commentsContainer.appendChild(contentEl);
+                        const imgEl = document.createElement('img');
+                        const picName = owner.split(' ');
+                        var picPath = 'assets/images/users/';
+                        imgEl.classList.add('userImage');
+                        imgEl.setAttribute('src', picPath.concat(picName[0], '.png'));
+                        imgEl.setAttribute('alt', 'User Image');
+
+                        const commentsWrapper = document.createElement('div');
+                        commentsWrapper.classList.add('commentInfo');
+                        commentsWrapper.appendChild(imgEl);
+                        commentsWrapper.appendChild(ownerEl);
+                        commentsWrapper.appendChild(contentEl);
+
+                        commentsContainer.appendChild(commentsWrapper);
                     });
+
 
                     modalClose.addEventListener('click', () => {
                         cont.style.display = 'none';
@@ -115,10 +128,10 @@
         </div>
         <div class="section section-marker">
             <p>Nuevo marcador <i class="fa-solid fa-location-dot"></i></p>
-            <button class="markerBtn"><i class="fa-solid fa-arrow-right"></i></button>
+            <button class="markerBtn" id="markerBtn"><i class="fa-solid fa-arrow-right"></i></button>
         </div>
         <div class="section section-challenges">
-            <button class="challengeBtn">Retos <i class="fa-solid fa-flag"></i></button>
+            <button class="challengeBtn" id="challengeBtn">Retos <i class="fa-solid fa-flag"></i></button>
         </div>
         <div class="section section-leaderboard">
             <h3>Tabla de clasificación</h3>
@@ -143,7 +156,7 @@
         </div>
 
         <div class="section section-logout">
-            <button class="logutBtn">Log Out <i class="fa-solid fa-right-from-bracket"></i></button>
+            <button class="logoutBtn" id="logoutBtn">Log Out <i class="fa-solid fa-right-from-bracket"></i></button>
         </div>
     </div>
     <div class="container">
@@ -155,14 +168,14 @@
         </div>
         <div class="content_box">
             <div class="content active">
-                <h2>General</h2>
                 <p class="placeName"></p>
             </div>
             <div class="content">
-                <h2>Comentarios</h2>
-                <div class="commentsContainer">
-                    <p class="commentOwner"></p>
-                    <p class="commentContent"></p>u
+                <div class="commentInfo">
+                    <div class="commentsContainer">
+                        <p class="commentOwner"></p>
+                        <p class="commentContent"></p>u
+                    </div>
                 </div>
             </div>
         </div>

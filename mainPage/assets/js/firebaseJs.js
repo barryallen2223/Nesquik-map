@@ -33,6 +33,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 
+const logoutBtn = document.getElementById('logoutBtn');
+const challengeBtn = document.getElementById('challengeBtn');
+const markerBtn = document.getElementById('markerBtn');
+
 var searchable = [];
 var positions = [];
 var locations = [];
@@ -84,4 +88,16 @@ DBToJSON().then((infoDB) => {
     localStorage.setItem("locations", JSON.stringify(locations));
 }).catch((error) => {
     console.error(error);
+});
+
+logoutBtn.addEventListener('click', () => {
+    window.location.href = "../index.html";
+});
+
+challengeBtn.addEventListener('click', () => {
+    window.location.href = "/retosPage/index.html";
+});
+
+markerBtn.addEventListener('click', () => {
+    window.location.href = "/markerPage/index.html";
 });
