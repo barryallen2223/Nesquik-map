@@ -225,6 +225,74 @@ nav a i {
     transition: 0.3s ease-out;
 }
 
+/* Styiling of the marker's features */
+
+.features {
+    align-items: flex-end;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.features>div {
+    align-items: center;
+    color: var(--white);
+    background: #8b61ff;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    display: flex;
+    font-size: 10px;
+    gap: 5px;
+    padding: 5px;
+}
+
+.highlight {
+    background-color: #ff028d;
+    border-radius: 8px;
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.2);
+    height: 80px;
+    padding: 8px 15px;
+    width: auto;
+}
+
+.highlight::after {
+    border-top: 9px solid #ff028d;
+}
+
+.highlight .details {
+    display: flex;
+}
+
+.highlight .icon svg {
+    width: 50px;
+    height: 50px;
+}
+
+.star {
+    color: var(--white);
+    font-size: clamp(8px, 1.2vw, 10px);
+}
+
+.bathroom {
+    color: var(--white);
+}
+
+.wheelchair {
+    color: var(--white);
+}
+
+.chargePoint {
+    color: var(--white);
+}
+
+.check-circle {
+    color: #61FF8B;
+}
+
+.times-circle {
+    color: #fa3434;
+}
+
 /* Right Panel Styles */
 #right-panel {
     position: fixed;

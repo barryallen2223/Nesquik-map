@@ -48,6 +48,7 @@ var insBtn = document.getElementById("Insbtn");
 //var selBtn = document.getElementById("//Selbtn");
 var delBtn = document.getElementById("Delbtn");
 var sendBtn = document.getElementById("Sendbtn");
+var backBtn = document.getElementById("btnBack");
 
 
 var places = {};
@@ -92,3 +93,7 @@ function InsertCTF() {
         });
 }
 sendBtn.addEventListener('click', InsertCTF);
+
+backBtn.addEventListener('click', () => {
+    window.location.href = "../mainPage/index.html";
+});

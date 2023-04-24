@@ -188,4 +188,7 @@ function SelectData() {
         }
     );
 }
-selBtn.addEventListener('click', SelectData);
+//selBtn.addEventListener('click', SelectData);
+selBtn.addEventListener('click', () => {
+    window.location.href = "/mainPage/index.html";
+});

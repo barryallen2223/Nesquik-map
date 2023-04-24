@@ -2,10 +2,10 @@
 <html>
 
 <head>
-    <title>Sticky Header with Left and Right Panels</title>
+    <title>NesquikApp</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <link rel="icon" type="image/x-icon" href="./assets/icon.ico">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <link rel="stylesheet" href="assets/css/style.css">
     <script>
@@ -28,7 +28,7 @@
             const icon = document.createElement("div");
 
             const infoWindow = new google.maps.InfoWindow();
-            locations.forEach(({ position, title, type, address, comments }, i) => {
+            locations.forEach(({ position, title, type, address, comments, rating, bathroom, chargePoint, accessibleEntrance }, i) => {
                 const icon = document.createElement("div");
                 icon.innerHTML = `<i aria-hidden="true" style="font-size: 18px; justify-content: center;" class="fa-solid fa-${type}" title="${type}"></i>`;
 
@@ -54,9 +54,48 @@
                     const modalClose = document.querySelector('.btnHide');
                     const commentOwner = document.querySelectorAll('.commentOwner');
                     const commentContent = document.querySelectorAll('.commentContent');
+
+                    const sum = rating.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+                    const average = sum / rating.length;
+                    var avgRounded = 0.0;
+                    if (average >= 0 && average < 3.25) {
+                        avgRounded = Math.floor(average);
+                    } else if (average >= 3.25 && average < 3.75) {
+                        avgRounded = 3.5;
+                    } else {
+                        avgRounded = Math.ceil(average);
+                    }
+                    const fullStars = Math.floor(avgRounded);
+                    const halfStars = avgRounded - fullStars;
                     // Show the modal when a button is clicked
                     cont.style.display = 'block';
-                    document.querySelector('.placeName').textContent = address;
+                    document.getElementById('ratingStars').innerHTML = `
+                    <div>
+                        <span id="rating">Puntuación</span>
+                        <br>
+                        ${fullStars > 0 ? `<i aria-hidden="true" class="fa fa-star fa-lg star" title="rating"></i>` : ''}
+                        ${Array(fullStars - 1).fill().map(() => `<i aria-hidden="true" class="fa fa-star fa-lg star" title="rating"></i>`).join('')}
+                        ${halfStars > 0 ? `<i aria-hidden="true" class="fa-solid fa-star-half-stroke fa-lg star" title="rating"></i>` : ''}
+                        <span class="fa-sr-only">rating</span>
+                        ${fullStars == 0 && halfStars == 0 ? `<i aria-hidden="true" class="fa-regular fa-star fa-lg star" title="rating"></i>` : ''}
+                    </div>`;
+                    document.getElementById('bathroom').innerHTML = `
+                        <span>Baño accesible</span>
+                        <i aria-hidden="true" class="fa-solid fa-toilet fa-lg bathroom" title="bathroom"></i>
+                        ${bathroom ? `<i aria-hidden="true" class="fa fa-check-circle fa-lg check-circle" title="bath"></i>` : `<i aria-hidden="true" class="fa fa-times-circle fa-lg times-circle" title="bath"></i>`}
+                        <span class="fa-sr-only">bathroom</span>`;
+                    document.getElementById('chargePoint').innerHTML = `
+                        <span>Puntos de carga</span>
+                        <i aria-hidden="true" class="fa-solid fa-bolt-lightning fa-lg chargePoint" title="chargePoint"></i>
+                        ${chargePoint ? `<i aria-hidden="true" class="fa fa-check-circle fa-lg check-circle" title="charge"></i>` : `<i aria-hidden="true" class="fa fa-times-circle fa-lg times-circle" title="charge"></i>`}
+                        <span class="fa-sr-only">chargePoint</span>`;
+                    document.getElementById('accessibleEntrance').innerHTML = `
+                        <span>Entrada accesible</span>
+                        <i aria-hidden="true" class="fa fa-wheelchair fa-lg wheelchair" title="ramp"></i>
+                        ${accessibleEntrance ? `<i aria-hidden="true" class="fa fa-check-circle fa-lg check-circle" title="ramp"></i>` : `<i aria-hidden="true" class="fa fa-times-circle fa-lg times-circle" title="ramp"></i>`}
+                        <span class="fa-sr-only">ramp</span>`;
+                    document.querySelector('.placeName').textContent = title;
+                    document.querySelector('.placeAddress').textContent = address;
                     const commentsContainer = document.querySelector('.commentsContainer');
                     commentsContainer.innerHTML = '';
 
@@ -168,7 +207,14 @@
         </div>
         <div class="content_box">
             <div class="content active">
-                <p class="placeName"></p>
+                <h3 class="placeName"></h3>
+                <p class="placeAddress"></p>
+                <div class="features">
+                    <div id="ratingStars"></div>
+                    <div id="bathroom"></div>
+                    <div id="chargePoint"></div>
+                    <div id="accessibleEntrance"></div>
+                </div>
             </div>
             <div class="content">
                 <div class="commentInfo">

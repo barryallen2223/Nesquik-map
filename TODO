@@ -1,13 +1,27 @@
 Cosas pendientes
 -----------------------------------------------------------
+[-] Agregar las estrellas y las cosas extras a las ventanas modales
+[-] Conectar el sistema de retos con la base de datos
+[-] Mostrar la informacion personalizada basado en lo que tenga la base de datos
+[-] Hacerle front al sistema de retos
+[-] Hacer una pagina para seleccion de retos
+[-] Cambiar la vista del boton dependiendo del tipo de usuario
+[-] Login con google
+[-] Elegir retos pero solo uno a la vez (puede ser un atributo del usuario en la base de datos)
+
+[-] Agregar funcionalidad al filtro del menu (opcional)
+    [-] Se puede hacer un map.clear o algo asi y de ahi, volver a dibujar los puntos pero validando el filtro activado
+
+[-] Acordarse de quitar el console.log de la informacion
+
+[-] Tiempo para los retos
+[-] Cambiar el color de los marcadores basado en que tan accesibles sean
+
+Cosas listas
+-----------------------------------------------------------
 [+] Sign In y Sign Out normal
 [+] Implementar DOM para la pagina principal para cambiar el usuario por el que se logeo
 [+] Crear otra vez marcadores
 [+] Conectar front con el back
-[-] Login con google
-[-] Elegir retos pero solo uno a la vez (puede ser un atributo del usuario en la base de datos)
 [+] Capacidad de hacer los markers clickeables
 [+] Agregar una vista de detalles sobre el marcador en ventana modal
-
-[-] Tiempo para los retos
-[-] Cambiar el color de los marcadores basado en que tan accesibles sean

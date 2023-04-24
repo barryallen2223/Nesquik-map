@@ -7,13 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar un punto</title>
     <link rel="shortcut icon" href="#">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
     <div class="main">
         <div class="form">
-            <h3>Capture the flag</h3>
+            <h3>Explora tu ciudad</h3>
             <input type="text" class="place" placeholder="Título del reto" id="challTitle">
             <input type="text" class="place" placeholder="Buscar ubicacion" id="placeName">
             <div class="btn-container">
@@ -24,11 +24,12 @@
                 <p id="listPlaces"></p>
             </div>
             <button id="Sendbtn" class="btnFinish">Terminar</button>
+            <button id="btnBack" class="btnBack">Volver</button>
         </div>
     </div>
 
-    <script src="index.js"></script>
-    <script type="module" src="firebase.js"></script>
+    <script src="assets/js/index.js"></script>
+    <script type="module" src="assets/js/firebase.js"></script>
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOWx1PkAqJP1slIm13vGaezmS6ERahMYs&callback=searchBar&libraries=localContext,marker,places&v=beta"></script>
 </body>
