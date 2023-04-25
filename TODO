@@ -1,9 +1,9 @@
 Cosas pendientes
 -----------------------------------------------------------
-[-] Agregar las estrellas y las cosas extras a las ventanas modales
-[-] Conectar el sistema de retos con la base de datos
+[+] Agregar las estrellas y las cosas extras a las ventanas modales
+[+] Conectar el sistema de retos con la base de datos
+[+] Hacerle front al sistema de retos
 [-] Mostrar la informacion personalizada basado en lo que tenga la base de datos
-[-] Hacerle front al sistema de retos
 [-] Hacer una pagina para seleccion de retos
 [-] Cambiar la vista del boton dependiendo del tipo de usuario
 [-] Login con google

@@ -89,7 +89,7 @@ h3 {
     justify-content: center;
     display: block;
     color: #fff;
-    background-color: #ff278c;
+    background-color: #7F00A2;
     font-size: 1em;
     font-weight: bold;
     margin-top: 30px;
@@ -100,7 +100,7 @@ h3 {
 }
 
 .btnFinish:hover {
-    background-color: #ec1479;
+    background-color: #672979;
 }
 
 .btnBack {
@@ -110,7 +110,7 @@ h3 {
     justify-content: center;
     display: block;
     color: #fff;
-    background-color: #ff278c;
+    background-color: #7F00A2;
     font-size: 1em;
     font-weight: bold;
     margin-top: 10px;
@@ -121,7 +121,7 @@ h3 {
 }
 
 .btnBack:hover {
-    background-color: #ec1479;
+    background-color: #672979;
 }
 
 .btn-container {
@@ -139,7 +139,7 @@ h3 {
     justify-content: center;
     display: block;
     color: #fff;
-    background-color: #ff278c;
+    background-color: #7F00A2;
     font-size: 1em;
     font-weight: bold;
     outline: none;
@@ -149,5 +149,5 @@ h3 {
 }
 
 .btnsEdit:hover {
-    background-color: #ec1479;
+    background-color: #672979;
 }

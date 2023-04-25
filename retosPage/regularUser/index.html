@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script>
+        function initMap() {
+
+            const options = {
+                zoom: 12,
+                center: { lat: 6.2476, lng: -75.5658 },
+                mapId: '122c8cd93cebd911',
+                disableDefaultUI: true, // a way to quickly hide all controls
+                streetViewControl: false,
+                mapTypeControl: false
+            }
+
+            const map = new google.maps.Map(document.getElementById("map"), options);
+        }
+        window.initMap = initMap;
+    </script>
+</head>
+
+<body>
+    <div class="right-panel">
+        <div class="title"><span id="titleChall">Titulo del reto</span></div>
+        <div class="places">
+            <div class="user-info">
+                <div class="userPic">
+                    <img src="assets/images/user.jpg" alt="UserPicture">
+                </div>
+                <div class="userName">John Deez</div>
+                <div class="userPoints">
+                    <span>Puntos acumulados: </span>
+                    <p>1500 pts</p>
+                </div>
+            </div>
+            <div class="navButtons">
+                <div class="startChall">
+                    Iniciar<button id="startCapture"><i class="fa-solid fa-play"></i></button>
+                </div>
+                <div class="cancelChall">
+                    Cancelar<button><i class="fa-solid fa-ban"></i></button>
+                </div>
+                <div class="updateChall">
+                    Validar ubicacion <button><i class="fa-solid fa-circle-check"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="placesLeft" id="directions-panel"></div>
+        <div class="go-back">
+            <button>Inicio <i class="fa-solid fa-house"></i></button>
+        </div>
+    </div>
+    <div id="map"></div>
+    <script src="assets/js/script.js"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOWx1PkAqJP1slIm13vGaezmS6ERahMYs&callback=initMap&libraries=localContext,marker&v=beta"></script>
+</body>
+
+</html>

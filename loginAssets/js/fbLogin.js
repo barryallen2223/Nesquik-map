@@ -73,7 +73,7 @@ function verifyLogin() {
                 if (logEmail.value == childData.email && logPass.value == childData.password) {
                     localStorage.setItem('userName', childData.name);
                     localStorage.setItem('userType', childData.type);
-                    window.location.href = "/mainPage/index.html";matchFound = true;
+                    window.location.href = "./mainPage/index.html";matchFound = true;
                     return;
                 }
             });

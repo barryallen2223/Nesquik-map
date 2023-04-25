@@ -56,8 +56,15 @@ var places = {};
 function writeInListPlaces() {
     var plName = localStorage.getItem('plName');
     var vic = localStorage.getItem('vic');
+    var lat = localStorage.getItem('lat');
+    var lng = localStorage.getItem('lng');
     var hyphen = "&#10687; ";
-    places[plName] = vic;
+    places[plName] = {
+        title: plName,
+        vicinity: vic,
+        lat: parseFloat(lat),
+        lng: parseFloat(lng),
+    };
     localStorage.setItem('lstPlaces', JSON.stringify(places));
     document.getElementById('listPlaces').innerHTML += hyphen.concat(plName, '<br>');
 }
@@ -83,6 +90,7 @@ delBtn.addEventListener('click', removePlace);
 
 function InsertCTF() {
     set(ref(db, "CTF/" + title.value), {
+        title: title.value,
         places: JSON.parse(localStorage.getItem('lstPlaces'))
     })
         .then(() => {
