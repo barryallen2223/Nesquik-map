@@ -67,6 +67,12 @@ body {
     border-right: 3px solid #1B1B1B;
 }
 
+.placesLeft>.firstOne {
+    color: #e893ff;
+}
+.placesLeft>.secondOne {
+    color: #a273f8;
+}
 .placesLeft>.nroTramo {
     color:aliceblue;
     font-weight: bold;

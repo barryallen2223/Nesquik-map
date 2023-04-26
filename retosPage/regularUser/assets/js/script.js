@@ -91,13 +91,13 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
         const placeVicinity = placeDetails ? placeDetails.vicinity : '';
         return placeName + ', ' + placeVicinity;
     });
-    console.log(newPlaceArray);
+    //console.log(newPlaceArray);
 
     const n = newPlaceArray.length;
     const startPlaces = newPlaceArray.slice(0, 1);
     const endPlaces = newPlaceArray.slice(n - 1, n);
     const middlePlaces = newPlaceArray.slice(1, n - 1);
-    console.log(startPlaces, middlePlaces, endPlaces);
+    //console.log(startPlaces, middlePlaces, endPlaces);
 
     var numMiddle = Math.floor(Math.random() * middlePlaces.length) + 1;
 
@@ -136,7 +136,7 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
             stopover: true
         })
     } */
-    console.log(waypts);
+    //console.log(waypts);
     directionsService
         .route({
             origin: startPlaces[Math.floor(Math.random() * startPlaces.length)],
@@ -155,12 +155,14 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
 
             // For each route, display summary information.
             for (let i = 0; i < route.legs.length; i++) {
+                var onlyVicStart = (route.legs[i].start_address).split(',', 2);
+                var onlyVicEnd = (route.legs[i].end_address).split(',', 2);
                 const routeSegment = i + 1;
 
                 summaryPanel.innerHTML +=
                     "<span class='nroTramo'>Tramo # " + routeSegment + "</span><br>";
-                summaryPanel.innerHTML += route.legs[i].start_address + " to ";
-                summaryPanel.innerHTML += route.legs[i].end_address + "<br>";
+                summaryPanel.innerHTML += "Desde <span class='firstOne'>" + onlyVicStart + "</span> hacia ";
+                summaryPanel.innerHTML += "<span class='secondOne'>" + onlyVicEnd + "</span><br>";
                 summaryPanel.innerHTML += "<span class='dst'>Distancia: </span>" + route.legs[i].distance.text + "<br><br>";
             }
         })
