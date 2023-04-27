@@ -90,15 +90,27 @@ DBToJSON().then((infoDB) => {
     console.error(error);
 });
 
+var currentUrl = window.location.href;
+currentUrl = currentUrl.replace('mainPage/index.html', '');
 
 logoutBtn.addEventListener('click', () => {
     window.location.href = "../index.html";
 });
 
 challengeBtn.addEventListener('click', () => {
-    window.location.href = "/retosPage/index.html";
+    if (localStorage.getItem('userType') == 'admin') {
+        const newPath = '/retosPage/admin/index.html';
+        const newUrl = `${currentUrl}${newPath}`;
+        window.location.href = newUrl;
+    } else {
+        const newPath = '/retosPage/regularUser/index.html';
+        const newUrl = `${currentUrl}${newPath}`;
+        window.location.href = newUrl;
+    }
 });
 
 markerBtn.addEventListener('click', () => {
-    window.location.href = "/markerPage/index.html";
+    const newPath = '/markerPage/index.html';
+    const newUrl = `${currentUrl}${newPath}`;
+    window.location.href = newUrl;
 });
