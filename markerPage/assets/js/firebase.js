@@ -67,6 +67,8 @@ function InserData() {
     var entrance = document.getElementById("entrance");
     var comments = document.getElementById("comments");
 
+    var plName = localStorage.getItem('plName');
+    var vic = localStorage.getItem('vic');
     
     const dbRef = ref(db, "Places");
     DBToJSON().then((infoDB) => {
@@ -74,8 +76,6 @@ function InserData() {
         const existPlace = infoDB.hasOwnProperty(plName);
         //console.log(infoDB);
         if (existPlace) {
-            var plName = localStorage.getItem('plName');
-            var vic = localStorage.getItem('vic');
             // console.log('Si existe');
             var ratingAux = infoDB[plName];
             var nameRelated = randomNames[Math.floor(Math.random() * randomNames.length)].concat(' ', randomAdjetives[Math.floor(Math.random() * randomAdjetives.length)]);
@@ -106,8 +106,6 @@ function InserData() {
                 });
         }
         else {
-            var plName = localStorage.getItem('plName');
-            var vic = localStorage.getItem('vic');
             // console.log('No existe');
             var ratingAux = [];
             ratingAux.push(parseInt(rating));
