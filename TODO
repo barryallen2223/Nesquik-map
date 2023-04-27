@@ -3,12 +3,12 @@ Cosas pendientes
 [?] Agregar el mismo chanchullix para la pagina regular de usuarios normales
 [-] Mostrar la informacion personalizada basado en lo que tenga la base de datos
 [-] Hacer una pagina para seleccion de retos
-[-] Cambiar la vista del boton dependiendo del tipo de usuario
+[+] Cambiar la vista del boton dependiendo del tipo de usuario
 [-] Login con google
 [-] Elegir retos pero solo uno a la vez (puede ser un atributo del usuario en la base de datos)
 
-[-] Agregar funcionalidad al filtro del menu (opcional)
-    [-] Se puede hacer un map.clear o algo asi y de ahi, volver a dibujar los puntos pero validando el filtro activado
+[+] Agregar funcionalidad al filtro del menu (opcional)
+    [+] Se puede hacer un map.clear o algo asi y de ahi, volver a dibujar los puntos pero validando el filtro activado
 
 [-] Acordarse de quitar el console.log de la informacion
 

@@ -39,6 +39,8 @@ const db = getDatabase();
 const startChall = document.getElementById('startCapture');
 const goBack = document.getElementById('goBack');
 
+var userPoints = document.querySelector('userPoints span');
+
 function DBToJSON() {
     return new Promise((resolve, reject) => {
         const dbRef = ref(db, "CTF");
@@ -52,6 +54,40 @@ function DBToJSON() {
                     var data = {};
                     var cdPlace = childData.places;
                     data['places'] = cdPlace;
+                    infoDB[childData.title] = data;
+                });
+                resolve(infoDB);
+            },
+            (error) => {
+                reject(error);
+            }
+        );
+    });
+}
+
+function PlacesDBToJSON() {
+    return new Promise((resolve, reject) => {
+        const dbRef = ref(db, "Places");
+        onValue(
+            dbRef,
+            (snapshot) => {
+                const infoDB = {};
+                snapshot.forEach((childSnapshot) => {
+                    const childKey = childSnapshot.key;
+                    const childData = childSnapshot.val();
+                    var data = {};
+                    data['address'] = childData.address;
+                    data['description'] = childData.description;
+                    data['title'] = childData.title;
+                    data['type'] = childData.type;
+                    data['rating'] = childData.rating;
+                    data['bathroom'] = childData.bathroom;
+                    data['chargePoint'] = childData.chargePoint;
+                    data['accessibleEntrance'] = childData.accessibleEntrance;
+                    data['comments'] = childData.comments;
+                    data['position'] = childData.position;
+                    data['visibility'] = childData.visibility;
+                    data['fullPlaceName'] = childData.fullPlaceName;
                     infoDB[childData.title] = data;
                 });
                 resolve(infoDB);

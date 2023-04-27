@@ -1,3 +1,12 @@
+window.addEventListener('load', function () {
+    const userName = localStorage.getItem('userName');
+    const h3Element = document.querySelector('.userName');
+    h3Element.textContent = userName;
+    var data = JSON.parse(localStorage.getItem('userData'));
+
+    document.getElementById('pointsShow').innerHTML = data['pointsPerChallenge'] + " pts";
+});
+
 var state = 'start';
 
 const startBtn = document.getElementById('startCapture');
@@ -11,8 +20,13 @@ function validatePosition(pointLat, pointLng) {
     //6.374708, -75.443681
 
     // Get the current position of the user
+    const options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0,
+    };
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
+        navigator.geolocation.getCurrentPosition((position, options) => {
             // Extract the latitude and longitude coordinates of the user's position
             const userLat = position.coords.latitude;
             const userLng = position.coords.longitude;
@@ -29,10 +43,10 @@ function validatePosition(pointLat, pointLng) {
 
             // Check if the distance is less than or equal to 50 meters
             if (distance <= 50) {
-                console.log("Enhorabuena tio!!!");
+                alert("Si");
                 //console.log("The user is within 50 meters of the defined point");
             } else {
-                console.log("Qbo gonorrea, usted no esta donde le dije, mueva esa silla pirobito")
+                alert("No xd")
                 //console.log("The user is not within 50 meters of the defined point");
             }
         }, (error) => {
@@ -159,6 +173,6 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
 }
 
 
-//updateBtn.addEventListener('click', validatePosition());
+//updateBtn.addEventListener('click', validatePosition(6.2529, -75.5646));
 
 window.initMap = initMap;

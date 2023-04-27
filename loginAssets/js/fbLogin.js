@@ -111,6 +111,8 @@ function verifyLogin() {
                 if (logEmail.value == childData.email && logPass.value == childData.password) {
                     localStorage.setItem('userName', childData.name);
                     localStorage.setItem('userType', childData.type);
+                    localStorage.setItem('userEmail', childData.email);
+                    localStorage.setItem('userData', JSON.stringify(childData.data));
                     window.location.href = "./mainPage/index.html"; matchFound = true;
                     return;
                 }
