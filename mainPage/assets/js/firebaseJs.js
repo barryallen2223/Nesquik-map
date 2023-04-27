@@ -99,18 +99,18 @@ logoutBtn.addEventListener('click', () => {
 
 challengeBtn.addEventListener('click', () => {
     if (localStorage.getItem('userType') == 'admin') {
-        const newPath = '/retosPage/admin/index.html';
+        const newPath = 'retosPage/admin/index.html';
         const newUrl = `${currentUrl}${newPath}`;
         window.location.href = newUrl;
     } else {
-        const newPath = '/retosPage/regularUser/index.html';
+        const newPath = 'retosPage/regularUser/index.html';
         const newUrl = `${currentUrl}${newPath}`;
         window.location.href = newUrl;
     }
 });
 
 markerBtn.addEventListener('click', () => {
-    const newPath = '/markerPage/index.html';
+    const newPath = 'markerPage/index.html';
     const newUrl = `${currentUrl}${newPath}`;
     window.location.href = newUrl;
 });

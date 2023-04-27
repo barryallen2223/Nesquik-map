@@ -189,6 +189,12 @@ function SelectData() {
     );
 }
 //selBtn.addEventListener('click', SelectData);
+
+var currentUrl = window.location.href;
+currentUrl = currentUrl.replace('/markerPage/index.html', '');
+
 selBtn.addEventListener('click', () => {
-    window.location.href = "/mainPage/index.html";
+    const newPath = '/mainPage/index.html';
+    const newUrl = `${currentUrl}${newPath}`;
+    window.location.href = newUrl;
 });

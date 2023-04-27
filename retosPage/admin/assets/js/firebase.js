@@ -102,6 +102,13 @@ function InsertCTF() {
 }
 sendBtn.addEventListener('click', InsertCTF);
 
+
+var currentUrl = window.location.href;
+currentUrl = currentUrl.replace('/retosPage/admin/index.html', '');
+
 backBtn.addEventListener('click', () => {
-    window.location.href = "../mainPage/index.html";
+    const newPath = '/mainPage/index.html';
+    const newUrl = `${currentUrl}${newPath}`;
+    window.location.href = newUrl;
 });
+

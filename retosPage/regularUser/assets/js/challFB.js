@@ -37,6 +37,7 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 
 const startChall = document.getElementById('startCapture');
+const goBack = document.getElementById('goBack');
 
 function DBToJSON() {
     return new Promise((resolve, reject) => {
@@ -68,4 +69,13 @@ startChall.addEventListener('click', () => {
     }).catch((error) => {
         console.error(error);
     });
-})
+});
+
+var currentUrl = window.location.href;
+currentUrl = currentUrl.replace('/retosPage/regularUser/index.html', '');
+
+goBack.addEventListener('click', () => {
+    const newPath = '/mainPage/index.html';
+    const newUrl = `${currentUrl}${newPath}`;
+    window.location.href = newUrl;
+});
