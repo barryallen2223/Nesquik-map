@@ -1,4 +1,3 @@
-
 var plName, vic;
 
 function searchBar() {

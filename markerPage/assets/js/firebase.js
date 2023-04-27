@@ -36,19 +36,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 
-var fullPlaceName = document.getElementById("placeName");
-var latV = parseFloat(localStorage.getItem('lat'));
-var lngV = parseFloat(localStorage.getItem('lng'));
-
-var locations = { lat: latV, lng: lngV };
-
 const radioButtons = document.querySelectorAll('input[type="radio"]');
 var rating;
-
-var bathroom = document.getElementById("bathroom");
-var charge = document.getElementById("charge");
-var entrance = document.getElementById("entrance");
-var comments = document.getElementById("comments");
+radioButtons.forEach(radio => {
+    radio.addEventListener('change', () => {
+        rating = radio.value;
+    });
+});
 
 var insBtn = document.getElementById("Insbtn");
 var selBtn = document.getElementById("Selbtn");
@@ -58,18 +52,27 @@ var randomAdjetives = ["Dulce", "Suave", "Sonriente", "Fuerte", "Agil", "Alegre"
 /* var updBtn = document.getElementById("Updbtn");
 var delBtn = document.getElementById("Delbtn"); */
 
-radioButtons.forEach(radio => {
-    radio.addEventListener('change', () => {
-        rating = radio.value;
-    });
-});
 
 function InserData() {
     //verifyPlace();
+
+    var fullPlaceName = document.getElementById("placeName");
+    var latV = parseFloat(localStorage.getItem('lat'));
+    var lngV = parseFloat(localStorage.getItem('lng'));
+
+    var locations = { lat: latV, lng: lngV };
+
+    var bathroom = document.getElementById("bathroom");
+    var charge = document.getElementById("charge");
+    var entrance = document.getElementById("entrance");
+    var comments = document.getElementById("comments");
+
+    
     const dbRef = ref(db, "Places");
     DBToJSON().then((infoDB) => {
         // Do something with the infoDB object
         const existPlace = infoDB.hasOwnProperty(plName);
+        //console.log(infoDB);
         if (existPlace) {
             var plName = localStorage.getItem('plName');
             var vic = localStorage.getItem('vic');
@@ -87,7 +90,7 @@ function InserData() {
             } else {
                 ratingAux.comments = [ratingAux.comments, nameRelated.concat(' | ', comments.value)];
             }
-
+            console.log(ratingAux.rating, ratingAux.comments);
             update(ref(db, "Places/" + plName), {
                 rating: ratingAux.rating,
                 bathroom: bathroom.checked ? parseInt(bathroom.value) : 0,

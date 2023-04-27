@@ -1,5 +1,7 @@
 Cosas pendientes
 -----------------------------------------------------------
+[-] Revisar que pasa con el "append" de los ratings y de los comentarios que dejaron de funcionar
+[-] Agregar el mismo chanchullix para la pagina regular de usuarios normales
 [-] Mostrar la informacion personalizada basado en lo que tenga la base de datos
 [-] Hacer una pagina para seleccion de retos
 [-] Cambiar la vista del boton dependiendo del tipo de usuario
