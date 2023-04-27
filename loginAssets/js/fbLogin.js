@@ -42,26 +42,51 @@ function InsertUser() {
     var regName = document.getElementById('regisUsername');
     var regEmail = document.getElementById('regisEmail');
     var regPass = document.getElementById('regisPassword');
-    set(ref(db, "Users/" + crypto.randomUUID()), {
-        name: regName.value,
-        email: regEmail.value,
-        password: regPass.value,
-        data: {
-            currentChallenge: 'null',
-            pointsPerChallenge: 0,
-            totalPoints: 0
+
+    const dbRef = ref(db, "Users");
+    let matchFound = false;
+
+    onValue(
+        dbRef,
+        (snapshot) => {
+            snapshot.forEach((childSnapshot) => {
+                const childKey = childSnapshot.key;
+                const childData = childSnapshot.val();
+                if (regEmail.value == childData.email) {
+                    alert('Ooops! Parece que ya tienes una cuenta');
+                    matchFound = true;
+                    emailInput.value = regEmail.value;
+                    container.classList.remove("right-panel-active");
+                    return;
+                }
+            });
+            if (!matchFound) {
+                set(ref(db, "Users/" + crypto.randomUUID()), {
+                    name: regName.value,
+                    email: regEmail.value,
+                    password: regPass.value,
+                    data: {
+                        currentChallenge: 'null',
+                        pointsPerChallenge: 0,
+                        totalPoints: 0
+                    },
+                    type: "user",
+                })
+                    .then(() => {
+                        //alert("Registro con éxito");
+                        emailInput.value = regEmail.value;
+                        passwordInput.value = regPass.value;
+                        container.classList.remove("right-panel-active");
+                    })
+                    .catch((error) => {
+                        alert("Unsuccessful, error: " + error);
+                    });
+            }
         },
-        type: "user",
-    })
-        .then(() => {
-            //alert("Registro con éxito");
-            emailInput.value = regEmail.value;
-            passwordInput.value = regPass.value;
-            container.classList.remove("right-panel-active");
-        })
-        .catch((error) => {
-            alert("Unsuccessful, error: " + error);
-        });
+        {
+            onlyOnce: true,
+        }
+    );
 }
 regBtn.addEventListener('click', InsertUser);
 
@@ -96,37 +121,3 @@ function verifyLogin() {
     );
 }
 logBtn.addEventListener('click', verifyLogin);
-
-
-function DBToJSON() {
-    return new Promise((resolve, reject) => {
-        const dbRef = ref(db, "Users");
-        onValue(
-            dbRef,
-            (snapshot) => {
-                const infoDB = {};
-                snapshot.forEach((childSnapshot) => {
-                    const childKey = childSnapshot.key;
-                    const childData = childSnapshot.val();
-                    var data = {};
-                    data['name'] = childData.name;
-                    data['email'] = childData.email;
-                    data['password'] = childData.password;
-                    data['data'] = childData.data;
-                    data['type'] = childData.type;
-                    infoDB[childData.title] = data;
-                });
-                resolve(infoDB);
-            },
-            (error) => {
-                reject(error);
-            }
-        );
-    });
-}
-
-DBToJSON().then((infoDB) => {
-
-}).catch((error) => {
-    console.error(error);
-});
