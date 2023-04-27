@@ -38,6 +38,10 @@ var logBtn = document.getElementById('loginBtn');
 var emailInput = document.getElementById('logInUsername');
 var passwordInput = document.getElementById('logInPassword');
 
+var searchable = [];
+var positions = [];
+var locations = [];
+
 function InsertUser() {
     var regName = document.getElementById('regisUsername');
     var regEmail = document.getElementById('regisEmail');

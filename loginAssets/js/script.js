@@ -1,4 +1,6 @@
 window.addEventListener('load', function () {
+    let url = window.location.href.split('#')[0];
+    history.pushState({}, null, url + '?#');
     localStorage.clear();
     console.log('localStorage cleared!');
 });
