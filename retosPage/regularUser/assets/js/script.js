@@ -1,56 +1,45 @@
 var state = 'start';
 
 const startBtn = document.getElementById('startCapture');
+const updateBtn = document.getElementById('updateCapture');
 
-/* var startPlaces = ["Planetario de Medellín Jesús Emilio Ramírez, Carrera 52, Aranjuez, Medellin, Antioquia", "Parque Explora, Carrera 52, Aranjuez, Medellin, Antioquia", "Parque Norte, Carrera 53, Aranjuez, Medellin, Antioquia"];
-var middlePlaces = ["Universidad de Antioquia, Calle 67, Aranjuez, Medellin, Antioquia", "EAFIT, Calle 7 Sur, El Poblado, Medellin, Antioquia", "Universidad de Medellín, Carrera 87, Medellin, Antioquia"];
-var endPlaces = ["Perficient, Carrera 42A, La Esmeralda, Itagüí, Antioquia", "Globant - One Plaza - Medellin, El Poblado, Medellin, Antioquia", "Mercado Libre Centro IT, Calle 10, El Poblado, Medellin, Antioquia"]; */
+function validatePosition(pointLat, pointLng) {
+    // Define the coordinates of the point you want to check against
+    /* const pointLat = 6.375007; // latitude of the point
+    const pointLng = -75.443053; // longitude of the point */
+    //6.375007, -75.443053
+    //6.374708, -75.443681
 
-function clockStart() {
-    let hour = 0, minutes = 0, seconds = 10;
-    let strH = "", strM = "", strS = "";
-    var timeRemaining = setInterval(function () {
-        if (state == 'start') {
-            // ...
-            if (hour > 0 && minutes == 0) {
-                hour--;
-                minutes = 59;
+    // Get the current position of the user
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+            // Extract the latitude and longitude coordinates of the user's position
+            const userLat = position.coords.latitude;
+            const userLng = position.coords.longitude;
+            console.log(userLat, userLng);
+            // Calculate the distance between the user's position and the defined point using the Haversine formula
+            const earthRadius = 6371; // radius of the earth in kilometers
+            const latDiff = (pointLat - userLat) * (Math.PI / 180); // convert degrees to radians
+            const lngDiff = (pointLng - userLng) * (Math.PI / 180);
+            const a = Math.sin(latDiff / 2) * Math.sin(latDiff / 2) +
+                Math.cos(userLat * (Math.PI / 180)) * Math.cos(pointLat * (Math.PI / 180)) *
+                Math.sin(lngDiff / 2) * Math.sin(lngDiff / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            const distance = earthRadius * c * 1000; // convert to meters
+
+            // Check if the distance is less than or equal to 50 meters
+            if (distance <= 50) {
+                console.log("Enhorabuena tio!!!");
+                //console.log("The user is within 50 meters of the defined point");
+            } else {
+                console.log("Qbo gonorrea, usted no esta donde le dije, mueva esa silla pirobito")
+                //console.log("The user is not within 50 meters of the defined point");
             }
-            if (minutes > 0 && seconds == 0) {
-                minutes--;
-                seconds = 59;
-            }
-            if (seconds > 0) {
-                seconds--;
-            }
-            if (hour == 0 && minutes == 0 && seconds == 0) {
-                //document.getElementById("status").innerHTML = "Se acabo el tiempo!";
-                clearInterval(timeRemaining);
-            }
-            if (hour < 10) {
-                strH = "0" + hour;
-            }
-            if (minutes < 10) {
-                strM = "0" + minutes;
-            }
-            if (seconds < 10) {
-                strS = "0" + seconds;
-            }
-            //document.getElementById("demo").innerHTML = strH + ":" + strM + ":" + strS;
-            //console.log("h: ", hour, "m: ", minutes, "s: ", seconds);
-        }
-        if (state == 'reset') {
-            //document.getElementById("demo").innerHTML = strH + ":" + strM + ":" + strS;
-            clearInterval(timeRemaining);
-            state = 'start';
-        }
-    }, 1000);
-}
-function pauseClock() {
-    state = 'pause';
-}
-function resetClock() {
-    state = 'reset';
+        }, (error) => {
+            // Handle any errors that occur when getting the user's location
+            console.error(error);
+        });
+    }
 }
 
 function initMap() {
@@ -168,5 +157,8 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
         })
         .catch((e) => window.alert("Directions request failed due to " + e));
 }
+
+
+//updateBtn.addEventListener('click', validatePosition());
 
 window.initMap = initMap;

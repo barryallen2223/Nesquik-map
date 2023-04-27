@@ -1,3 +1,8 @@
+window.addEventListener('load', function () {
+    localStorage.clear();
+    console.log('localStorage cleared!');
+});
+
 const signUpButton = document.getElementById('signUp');
 const signInButton = document.getElementById('signIn');
 const container = document.getElementById('container');

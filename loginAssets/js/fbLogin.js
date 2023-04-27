@@ -35,6 +35,8 @@ const db = getDatabase();
 
 var regBtn = document.getElementById('regisBtn');
 var logBtn = document.getElementById('loginBtn');
+var emailInput = document.getElementById('logInUsername');
+var passwordInput = document.getElementById('logInPassword');
 
 function InsertUser() {
     var regName = document.getElementById('regisUsername');
@@ -44,11 +46,18 @@ function InsertUser() {
         name: regName.value,
         email: regEmail.value,
         password: regPass.value,
-        data: {},
+        data: {
+            currentChallenge: 'null',
+            pointsPerChallenge: 0,
+            totalPoints: 0
+        },
         type: "user",
     })
         .then(() => {
-            alert("Registración con éxito");
+            //alert("Registro con éxito");
+            emailInput.value = regEmail.value;
+            passwordInput.value = regPass.value;
+            container.classList.remove("right-panel-active");
         })
         .catch((error) => {
             alert("Unsuccessful, error: " + error);
@@ -59,7 +68,7 @@ regBtn.addEventListener('click', InsertUser);
 function verifyLogin() {
     var logEmail = document.getElementById('logInUsername');
     var logPass = document.getElementById('logInPassword');
-    
+
     const dbRef = ref(db, "Users");
     let matchFound = false;
 
@@ -73,11 +82,11 @@ function verifyLogin() {
                 if (logEmail.value == childData.email && logPass.value == childData.password) {
                     localStorage.setItem('userName', childData.name);
                     localStorage.setItem('userType', childData.type);
-                    window.location.href = "./mainPage/index.html";matchFound = true;
+                    window.location.href = "./mainPage/index.html"; matchFound = true;
                     return;
                 }
             });
-            if (!matchFound) { 
+            if (!matchFound) {
                 alert("Usuario y/o contraseña incorrectos!");
             }
         },
@@ -87,3 +96,37 @@ function verifyLogin() {
     );
 }
 logBtn.addEventListener('click', verifyLogin);
+
+
+function DBToJSON() {
+    return new Promise((resolve, reject) => {
+        const dbRef = ref(db, "Users");
+        onValue(
+            dbRef,
+            (snapshot) => {
+                const infoDB = {};
+                snapshot.forEach((childSnapshot) => {
+                    const childKey = childSnapshot.key;
+                    const childData = childSnapshot.val();
+                    var data = {};
+                    data['name'] = childData.name;
+                    data['email'] = childData.email;
+                    data['password'] = childData.password;
+                    data['data'] = childData.data;
+                    data['type'] = childData.type;
+                    infoDB[childData.title] = data;
+                });
+                resolve(infoDB);
+            },
+            (error) => {
+                reject(error);
+            }
+        );
+    });
+}
+
+DBToJSON().then((infoDB) => {
+
+}).catch((error) => {
+    console.error(error);
+});
