@@ -90,6 +90,37 @@ DBToJSON().then((infoDB) => {
     console.error(error);
 });
 
+function challengeNames() {
+    return new Promise((resolve, reject) => {
+        const dbRef = ref(db, "CTF");
+        onValue(
+            dbRef,
+            (snapshot) => {
+                const infoDB = {};
+                snapshot.forEach((childSnapshot) => {
+                    const childKey = childSnapshot.key;
+                    const childData = childSnapshot.val();
+                    var data = {};
+                    data['places'] = childData.places;
+                    data['title'] = childData.title;
+                    infoDB[childData.title] = data;
+                });
+                resolve(infoDB);
+            },
+            (error) => {
+                reject(error);
+            }
+        );
+    });
+}
+
+challengeNames().then((infoDB) => {
+    localStorage.setItem('CTF', JSON.stringify(infoDB));
+    console.log(infoDB);
+}).catch((error) => {
+    console.error(error);
+});
+
 var currentUrl = window.location.href;
 currentUrl = currentUrl.replace('mainPage/index.html', '');
 

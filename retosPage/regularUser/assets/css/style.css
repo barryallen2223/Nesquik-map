@@ -6,8 +6,10 @@
 }
 
 body {
-
+    display: flex;
     font-family: 'Poppins', sans-serif;
+    align-items: center;
+    justify-content: center;
 }
 
 /* CSS for the right panel */
@@ -70,16 +72,19 @@ body {
 .placesLeft>.firstOne {
     color: #e893ff;
 }
+
 .placesLeft>.secondOne {
     color: #a273f8;
 }
+
 .placesLeft>.nroTramo {
-    color:aliceblue;
+    color: aliceblue;
     font-weight: bold;
     font-size: 18px;
 }
+
 .placesLeft>.dst {
-    color:aliceblue;
+    color: aliceblue;
     font-weight: bold;
     font-size: 14px;
 }
@@ -271,6 +276,101 @@ body {
 .go-back>button:hover {
     background-color: #672979;
     transition: 0.3s all ease-in;
+}
+
+/* MODAL STYLING */
+.modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.4rem;
+    width: 350px;
+    padding: 1.3rem;
+    min-height: 250px;
+    position: absolute;
+    z-index: 2;
+    top: 8%;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+}
+
+.modal .flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.flex > img {
+    margin-right: 20px;
+}
+
+.modal input {
+    padding: 0.7rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.modal select {
+    padding: 0.7rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+.modal p {
+    font-size: 0.9rem;
+    color: #777;
+    margin: 0.4rem 0 0.2rem;
+}
+
+.btnAccept {
+    padding: 0.8rem 1.4rem;
+    font-weight: 700;
+    background-color: #7F00A2;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-size: 1em;
+}
+
+.btn-open {
+    cursor: pointer;
+    border: none;
+    font-weight: 600;
+    position: absolute;
+    bottom: 150px;
+}
+
+.btn-close {
+    cursor: pointer;
+    border: none;
+    font-weight: 600;
+    transform: translate(10px, -20px);
+    padding: 0.5rem 0.7rem;
+    background: #eee;
+    border-radius: 50%;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    z-index: 1;
+}
+
+.hidden {
+    display: none;
 }
 
 #map {

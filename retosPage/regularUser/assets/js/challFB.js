@@ -38,8 +38,9 @@ const db = getDatabase();
 
 const startChall = document.getElementById('startCapture');
 const goBack = document.getElementById('goBack');
-
+const accept = document.querySelector('.btnAccept');
 var userPoints = document.querySelector('userPoints span');
+
 
 function DBToJSON() {
     return new Promise((resolve, reject) => {
@@ -114,4 +115,47 @@ goBack.addEventListener('click', () => {
     const newPath = '/mainPage/index.html';
     const newUrl = `${currentUrl}${newPath}`;
     window.location.href = newUrl;
+});
+
+accept.addEventListener('click', () => {
+    const placeValue = document.getElementById('placesList');
+    const userName = localStorage.getItem('userName');
+    const userEmail = localStorage.getItem('userEmail');
+    const userType = localStorage.getItem('userType');
+
+    // Modify the currentChallenge
+    const dbRef = ref(db, "Users");
+    onValue(
+        dbRef,
+        (snapshot) => {
+            snapshot.forEach((childSnapshot) => {
+                const childKey = childSnapshot.key;
+                const childData = childSnapshot.val();
+
+                if (userName == childData.name && userEmail == childData.email) {
+                    var data = childData.data;
+                    data.currentChallenge = placeValue.value;
+                    localStorage.setItem('currentChallengeAccepted', placeValue.value);
+                    console.log(placeValue.value);
+                    //console.log(childKey, childData);
+
+                    update(ref(db, "Users/" + childKey), {
+                        data: data,
+                    })
+                        .then(() => {
+                            console.log("Data updated successfully!");
+                            //alert("Data updated successfully!");
+                        })
+                        .catch((error) => {
+                            console.log("Unsuccessful, error: " + error);
+                            localStorage.setItem('currentChallengeAccepted', 'null');
+                            //alert("Unsuccessful, error: " + error);
+                        });
+                }
+            });
+        },
+        {
+            onlyOnce: true,
+        }
+    );
 });

@@ -46,7 +46,7 @@
                     Iniciar<button id="startCapture"><i class="fa-solid fa-play"></i></button>
                 </div>
                 <div class="cancelChall">
-                    Cancelar<button><i class="fa-solid fa-ban"></i></button>
+                    Cancelar<button id="cancelCapture"><i class="fa-solid fa-ban"></i></button>
                 </div>
                 <div class="updateChall">
                     Validar ubicacion <button id="updateCapture"><i class="fa-solid fa-circle-check"></i></button>
@@ -60,6 +60,29 @@
         </div>
     </div>
     <div id="map"></div>
+    <section class="modal hidden">
+        <div class="flex">
+            <img src="assets/images/user.jpg" width="50px" height="50px" style="border-radius: 50%;" alt="user" />
+            <h3 class="welcomeMsg">¡Hola, </h3>
+            <!-- <button class="btn-close">⨉</button> -->
+        </div>
+        <div>
+            <p style="text-align: center;">
+                Parece que aún no has seleccionado un reto
+            </p>
+            <p style="text-align: center;">
+                Escoge uno de los retos a continuación para empezar
+            </p>
+        </div>
+
+        <!-- <input type="text" id="asunto" placeholder="Asunto" /> -->
+        <select name="" id="placesList"></select>
+        <button class="btnAccept">¡Aceptar Reto! <i class="fa-solid fa-flag-checkered"></i> </button>
+    </section>
+
+    <div class="overlay hidden"></div>
+    <!-- <button class="btn btn-open">Open Modal</button> -->
+
     <script src="assets/js/modal.js"></script>
     <script src="assets/js/script.js"></script>
     <script type="module" src="assets/js/challFB.js"></script>

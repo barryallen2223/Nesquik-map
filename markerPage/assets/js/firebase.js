@@ -95,7 +95,7 @@ function InserData() {
             }
             console.log(ratingAux.rating, ratingAux.comments);
 
-            // Adding 140 pts for creating a marker
+            // Adding 60 pts for creating a marker
             const dbRef = ref(db, "Users");
             //console.log(userName, userEmail);
             onValue(
@@ -107,7 +107,7 @@ function InserData() {
 
                         if (userName == childData.name && userEmail == childData.email) {
                             var data = childData.data;
-                            data.totalPoints += 140;
+                            data.totalPoints += 60;
                             //console.log(childKey, childData);
 
                             update(ref(db, "Users/" + childKey), {
@@ -151,7 +151,7 @@ function InserData() {
             var nameRelated = randomNames[Math.floor(Math.random() * randomNames.length)].concat(' ', randomAdjetives[Math.floor(Math.random() * randomAdjetives.length)]);
             commentAux.push(nameRelated.concat(' | ', comments.value));
 
-            // Adding 80 pts for creating a marker
+            // Adding 140 pts for creating a marker
             const dbRef = ref(db, "Users");
             //console.log(userName, userEmail);
             onValue(

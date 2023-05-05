@@ -1,15 +1,67 @@
+const modal = document.querySelector(".modal");
+const overlay = document.querySelector(".overlay");
+//const openModalBtn = document.querySelector(".btn-open");
+//const closeModalBtn = document.querySelector(".btn-close");
+
+// close modal function
+const closeModal = function () {
+    modal.classList.add("hidden");
+    overlay.classList.add("hidden");
+};
+
+// close the modal when the close button and overlay is clicked
+//closeModalBtn.addEventListener("click", closeModal);
+overlay.addEventListener("click", closeModal);
+
+// close modal when the Esc key is pressed
+document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+        closeModal();
+    }
+});
+
+// open modal function
+const openModal = function () {
+    modal.classList.remove("hidden");
+    overlay.classList.remove("hidden");
+};
+// open modal event
+//openModalBtn.addEventListener("click", openModal);
+
 window.addEventListener('load', function () {
     const userName = localStorage.getItem('userName');
     const h3Element = document.querySelector('.userName');
+    const msg = document.querySelector('.welcomeMsg');
+    const placesList = document.getElementById("placesList");
+    const places = JSON.parse(localStorage.getItem('CTF'));
+    const getCurrentChall = localStorage.getItem('currentChallengeAccepted');
+    const placesKeys = Object.keys(places);
+    placesKeys.forEach(place => {
+        const option = document.createElement("option");
+        option.value = place;
+        option.text = place;
+        placesList.appendChild(option);
+    });
+    
     h3Element.textContent = userName;
+    msg.textContent += userName + "!";
     var data = JSON.parse(localStorage.getItem('userData'));
-
+    
     document.getElementById('pointsShow').innerHTML = data['pointsPerChallenge'] + " pts";
+    if (data['currentChallenge'] == 'null' && getCurrentChall == 'null') {
+        openModal();
+    } else if(getCurrentChall == 'null' || getCurrentChall == null) {
+        openModal();
+    }
+    else if (getCurrentChall != 'null') {
+        closeModal();
+    }
 });
 
 var state = 'start';
 
 const startBtn = document.getElementById('startCapture');
+const calcelBtn = document.getElementById('cancelCapture');
 const updateBtn = document.getElementById('updateCapture');
 
 function validatePosition(pointLat, pointLng) {
@@ -70,6 +122,13 @@ function initMap() {
 
     directionsRenderer.setMap(map);
     document.getElementById("startCapture").addEventListener("click", () => {
+        document.querySelector('.startChall').style.display = 'none';
+        document.querySelector('.cancelChall').style.display = 'flex';
+        calculateAndDisplayRoute(directionsService, directionsRenderer);
+    });
+    document.getElementById("cancelCapture").addEventListener("click", () => {
+        document.querySelector('.startChall').style.display = 'flex';
+        document.querySelector('.cancelChall').style.display = 'none';
         calculateAndDisplayRoute(directionsService, directionsRenderer);
     });
 }
@@ -83,7 +142,12 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
     /* */
 
     var places = JSON.parse(localStorage.getItem('CTF'));
-    var challName = 'Reto POR FAVOR';
+
+    var data = JSON.parse(localStorage.getItem('userData'));
+    //var challName = 'Reto POR FAVOR';
+    //var challName = data['currentChalllenge'];
+
+    var challName = localStorage.getItem('currentChallengeAccepted');
     document.getElementById('titleChall').innerHTML = challName;
     placeArray = Object.keys(places[challName].places);
     //console.log(places[challName].places);
