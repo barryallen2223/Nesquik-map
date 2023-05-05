@@ -72,7 +72,7 @@ function InsertUser() {
                     data: {
                         currentChallenge: 'null',
                         pointsPerChallenge: 0,
-                        totalPoints: 0
+                        totalPoints: 200
                     },
                     type: "user",
                 })

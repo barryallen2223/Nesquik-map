@@ -1,0 +1,6 @@
+
+Al iniciar sesion, crear una variable para verificar que si se inicio sesion
+Al cargar el inicio de sesion, se reinicia
+Al darle a logout, se reinicia
+
+Si no esta en true desde la mainPage, dice "Debes iniciar sesion primero antes de entrar" y lo devuelve

@@ -1,4 +1,7 @@
 window.addEventListener('load', function () {
+    let cleanUrl = window.location.href.split('/').slice(0, 3).join('/') + '/index.html';
+    history.replaceState({}, null, cleanUrl);
+
     let url = window.location.href.split('#')[0];
     history.pushState({}, null, url + '?#');
     localStorage.clear();

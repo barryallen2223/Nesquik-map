@@ -51,12 +51,37 @@
             locations.forEach(({ position, title, type, address, comments, rating, bathroom, chargePoint, accessibleEntrance }, i) => {
                 const icon = document.createElement("div");
                 icon.innerHTML = `<i aria-hidden="true" style="font-size: 18px; justify-content: center;" class="fa-solid fa-${type}" title="${type}"></i>`;
-
+                // Verde: #2E964F
+                // Amarillo: #DAA63F
+                // Rojo: #A22C37
+                let bath = bathroom;
+                let charge = chargePoint;
+                let entrance = accessibleEntrance;
+                let bgColor, bdColor;
+                switch (bath + "" + charge + "" + entrance) {
+                    case "111":
+                        bgColor = "#3ABD64";
+                        bdColor = "#2E964F";
+                        break;
+                    case "011":
+                    case "101":
+                    case "110":
+                        bgColor = "#DAA63F";
+                        bdColor = "#C18D25";
+                        break;
+                    case "001":
+                    case "010":
+                    case "100":
+                    case "000":
+                        bgColor = "#C93846";
+                        bdColor = "#A22C37";
+                        break;
+                }
                 const pinView = new google.maps.marker.PinView({
                     glyph: icon,
                     glyphColor: "#FFF",
-                    background: "#7F00A2",
-                    borderColor: "#672979",
+                    background: bgColor,
+                    borderColor: bdColor,
                     scale: 1.2,
                 });
 
@@ -172,12 +197,37 @@
                 containsBathroom.forEach(({ position, title, type, address, comments, rating, bathroom, chargePoint, accessibleEntrance }, i) => {
                     const icon = document.createElement("div");
                     icon.innerHTML = `<i aria-hidden="true" style="font-size: 18px; justify-content: center;" class="fa-solid fa-${type}" title="${type}"></i>`;
-
+                    // Verde: #2E964F
+                    // Amarillo: #DAA63F
+                    // Rojo: #A22C37
+                    let bath = bathroom;
+                    let charge = chargePoint;
+                    let entrance = accessibleEntrance;
+                    let bgColor, bdColor;
+                    switch (bath + "" + charge + "" + entrance) {
+                        case "111":
+                            bgColor = "#3ABD64";
+                            bdColor = "#2E964F";
+                            break;
+                        case "011":
+                        case "101":
+                        case "110":
+                            bgColor = "#DAA63F";
+                            bdColor = "#C18D25";
+                            break;
+                        case "001":
+                        case "010":
+                        case "100":
+                        case "000":
+                            bgColor = "#C93846";
+                            bdColor = "#A22C37";
+                            break;
+                    }
                     const pinView = new google.maps.marker.PinView({
                         glyph: icon,
                         glyphColor: "#FFF",
-                        background: "#7F00A2",
-                        borderColor: "#672979",
+                        background: bgColor,
+                        borderColor: bdColor,
                         scale: 1.2,
                     });
 
@@ -291,15 +341,39 @@
                 containsCharge.forEach(({ position, title, type, address, comments, rating, bathroom, chargePoint, accessibleEntrance }, i) => {
                     const icon = document.createElement("div");
                     icon.innerHTML = `<i aria-hidden="true" style="font-size: 18px; justify-content: center;" class="fa-solid fa-${type}" title="${type}"></i>`;
-
+                    // Verde: #2E964F
+                    // Amarillo: #DAA63F
+                    // Rojo: #A22C37
+                    let bath = bathroom;
+                    let charge = chargePoint;
+                    let entrance = accessibleEntrance;
+                    let bgColor, bdColor;
+                    switch (bath + "" + charge + "" + entrance) {
+                        case "111":
+                            bgColor = "#3ABD64";
+                            bdColor = "#2E964F";
+                            break;
+                        case "011":
+                        case "101":
+                        case "110":
+                            bgColor = "#DAA63F";
+                            bdColor = "#C18D25";
+                            break;
+                        case "001":
+                        case "010":
+                        case "100":
+                        case "000":
+                            bgColor = "#C93846";
+                            bdColor = "#A22C37";
+                            break;
+                    }
                     const pinView = new google.maps.marker.PinView({
                         glyph: icon,
                         glyphColor: "#FFF",
-                        background: "#7F00A2",
-                        borderColor: "#672979",
+                        background: bgColor,
+                        borderColor: bdColor,
                         scale: 1.2,
                     });
-
                     const marker = new google.maps.marker.AdvancedMarkerView({
                         position,
                         map,
@@ -410,12 +484,37 @@
                 containsEntrance.forEach(({ position, title, type, address, comments, rating, bathroom, chargePoint, accessibleEntrance }, i) => {
                     const icon = document.createElement("div");
                     icon.innerHTML = `<i aria-hidden="true" style="font-size: 18px; justify-content: center;" class="fa-solid fa-${type}" title="${type}"></i>`;
-
+                    // Verde: #2E964F
+                    // Amarillo: #DAA63F
+                    // Rojo: #A22C37
+                    let bath = bathroom;
+                    let charge = chargePoint;
+                    let entrance = accessibleEntrance;
+                    let bgColor, bdColor;
+                    switch (bath + "" + charge + "" + entrance) {
+                        case "111":
+                            bgColor = "#3ABD64";
+                            bdColor = "#2E964F";
+                            break;
+                        case "011":
+                        case "101":
+                        case "110":
+                            bgColor = "#DAA63F";
+                            bdColor = "#C18D25";
+                            break;
+                        case "001":
+                        case "010":
+                        case "100":
+                        case "000":
+                            bgColor = "#C93846";
+                            bdColor = "#A22C37";
+                            break;
+                    }
                     const pinView = new google.maps.marker.PinView({
                         glyph: icon,
                         glyphColor: "#FFF",
-                        background: "#7F00A2",
-                        borderColor: "#672979",
+                        background: bgColor,
+                        borderColor: bdColor,
                         scale: 1.2,
                     });
 
@@ -526,7 +625,7 @@
 
 <body>
     <header>
-        <h1>Nesquik</h1>
+        <h1>FindBy</h1>
         <div class="search-container">
             <input type="text" placeholder="Search place...">
             <i class="fa fa-search"></i>

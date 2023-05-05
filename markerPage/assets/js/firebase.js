@@ -69,8 +69,11 @@ function InserData() {
 
     var plName = localStorage.getItem('plName');
     var vic = localStorage.getItem('vic');
-    
-    const dbRef = ref(db, "Places");
+
+    const userName = localStorage.getItem('userName');
+    const userEmail = localStorage.getItem('userEmail');
+    const userType = localStorage.getItem('userType');
+
     DBToJSON().then((infoDB) => {
         // Do something with the infoDB object
         const existPlace = infoDB.hasOwnProperty(plName);
@@ -91,6 +94,41 @@ function InserData() {
                 ratingAux.comments = [ratingAux.comments, nameRelated.concat(' | ', comments.value)];
             }
             console.log(ratingAux.rating, ratingAux.comments);
+
+            // Adding 140 pts for creating a marker
+            const dbRef = ref(db, "Users");
+            //console.log(userName, userEmail);
+            onValue(
+                dbRef,
+                (snapshot) => {
+                    snapshot.forEach((childSnapshot) => {
+                        const childKey = childSnapshot.key;
+                        const childData = childSnapshot.val();
+
+                        if (userName == childData.name && userEmail == childData.email) {
+                            var data = childData.data;
+                            data.totalPoints += 140;
+                            //console.log(childKey, childData);
+
+                            update(ref(db, "Users/" + childKey), {
+                                data: data,
+                            })
+                                .then(() => {
+                                    console.log("Data updated successfully!");
+                                    //alert("Data updated successfully!");
+                                })
+                                .catch((error) => {
+                                    console.log("Unsuccessful, error: " + error);
+                                    //alert("Unsuccessful, error: " + error);
+                                });
+                        }
+                    });
+                },
+                {
+                    onlyOnce: true,
+                }
+            );
+
             update(ref(db, "Places/" + plName), {
                 rating: ratingAux.rating,
                 bathroom: bathroom.checked ? parseInt(bathroom.value) : 0,
@@ -112,6 +150,41 @@ function InserData() {
             var commentAux = [];
             var nameRelated = randomNames[Math.floor(Math.random() * randomNames.length)].concat(' ', randomAdjetives[Math.floor(Math.random() * randomAdjetives.length)]);
             commentAux.push(nameRelated.concat(' | ', comments.value));
+
+            // Adding 80 pts for creating a marker
+            const dbRef = ref(db, "Users");
+            //console.log(userName, userEmail);
+            onValue(
+                dbRef,
+                (snapshot) => {
+                    snapshot.forEach((childSnapshot) => {
+                        const childKey = childSnapshot.key;
+                        const childData = childSnapshot.val();
+
+                        if (userName == childData.name && userEmail == childData.email) {
+                            var data = childData.data;
+                            data.totalPoints += 140;
+                            //console.log(childKey, childData);
+
+                            update(ref(db, "Users/" + childKey), {
+                                data: data,
+                            })
+                                .then(() => {
+                                    console.log("Data updated successfully!");
+                                    //alert("Data updated successfully!");
+                                })
+                                .catch((error) => {
+                                    console.log("Unsuccessful, error: " + error);
+                                    //alert("Unsuccessful, error: " + error);
+                                });
+                        }
+                    });
+                },
+                {
+                    onlyOnce: true,
+                }
+            );
+
             set(ref(db, "Places/" + plName), {
                 address: vic,
                 description: "",
@@ -139,6 +212,7 @@ function InserData() {
 }
 insBtn.addEventListener('click', InserData);
 
+// This function brings all the info from the "Places" collection
 function DBToJSON() {
     return new Promise((resolve, reject) => {
         const dbRef = ref(db, "Places");
