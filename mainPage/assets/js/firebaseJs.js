@@ -122,7 +122,9 @@ challengeNames().then((infoDB) => {
 });
 
 var currentUrl = window.location.href;
-currentUrl = currentUrl.replace('mainPage/index.html', '');
+currentUrl = currentUrl.replace('/Nesquik-map/mainPage/', '/Nesquik-map/');
+
+//currentUrl = currentUrl.replace('mainPage/index.html', '');
 
 logoutBtn.addEventListener('click', () => {
     window.location.href = "../index.html";
@@ -130,18 +132,21 @@ logoutBtn.addEventListener('click', () => {
 
 challengeBtn.addEventListener('click', () => {
     if (localStorage.getItem('userType') == 'admin') {
-        const newPath = 'retosPage/admin/index.html';
+        /* const newPath = 'retosPage/admin/';
         const newUrl = `${currentUrl}${newPath}`;
-        window.location.href = newUrl;
+        window.location.href = newUrl; */
+        window.location.href = window.location.href.replace("/mainPage/", "/retosPage/admin/");
     } else {
-        const newPath = 'retosPage/regularUser/index.html';
+        /* const newPath = 'retosPage/regularUser/';
         const newUrl = `${currentUrl}${newPath}`;
-        window.location.href = newUrl;
+        window.location.href = newUrl; */
+        window.location.href = window.location.href.replace("/mainPage/", "/retosPage/regularUser/");
     }
 });
 
 markerBtn.addEventListener('click', () => {
-    const newPath = 'markerPage/index.html';
+    /* const newPath = 'markerPage/';
     const newUrl = `${currentUrl}${newPath}`;
-    window.location.href = newUrl;
+    window.location.href = newUrl; */
+    window.location.href = window.location.href.replace("/mainPage/", "/markerPage/");
 });

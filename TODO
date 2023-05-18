@@ -1,17 +1,7 @@
 Cosas pendientes
 -----------------------------------------------------------
-[+] Darle al usuario 200 puntos de base
-[+] Darle al usuario 80 puntos por marcador
-[+] Agregar puntos por comentario
-[+] Darle al usuario por rating
-[+] Analizar Google Maps Geolocation API 
-[-] Mostrar la informacion personalizada basado en lo que tenga la base de datos
-[-] Hacer una pagina para seleccion de retos
 [-] Elegir retos pero solo uno a la vez (puede ser un atributo del usuario en la base de datos)
-
-
 [-] Tiempo para los retos
-[+] Cambiar el color de los marcadores basado en que tan accesibles sean
 
 
 +---------------------------------+
@@ -45,5 +35,13 @@ Cosas listas
 [+] Acordarse de quitar el console.log de la informacion
 [+] Cambiar la vista del boton dependiendo del tipo de usuario
 [?] Agregar el mismo chanchullix para la pagina regular de usuarios normales
+[+] Darle al usuario 200 puntos de base
+[+] Darle al usuario 80 puntos por marcador
+[+] Agregar puntos por comentario
+[+] Darle al usuario por rating
+[+] Analizar Google Maps Geolocation API 
+[+] Mostrar la informacion personalizada basado en lo que tenga la base de datos
+[+] Hacer una pagina para seleccion de retos
+[+] Cambiar el color de los marcadores basado en que tan accesibles sean
 
 

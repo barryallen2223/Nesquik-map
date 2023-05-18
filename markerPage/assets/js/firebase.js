@@ -269,7 +269,8 @@ var currentUrl = window.location.href;
 currentUrl = currentUrl.replace('/markerPage/index.html', '');
 
 selBtn.addEventListener('click', () => {
-    const newPath = '/mainPage/index.html';
+    /* const newPath = '/mainPage/index.html';
     const newUrl = `${currentUrl}${newPath}`;
-    window.location.href = newUrl;
+    window.location.href = newUrl; */
+    window.location.href = window.location.href.replace("/markerPage/", "/mainPage/");
 });

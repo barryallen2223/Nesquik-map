@@ -39,7 +39,26 @@ const db = getDatabase();
 const startChall = document.getElementById('startCapture');
 const goBack = document.getElementById('goBack');
 const accept = document.querySelector('.btnAccept');
+const start = document.querySelector('.startChall');
+const cancel = document.querySelector('.cancelChall');
 var userPoints = document.querySelector('userPoints span');
+
+const modal = document.querySelector(".modal");
+const overlay = document.querySelector(".overlay");
+//const openModalBtn = document.querySelector(".btn-open");
+//const closeModalBtn = document.querySelector(".btn-close");
+
+// close modal function
+const closeModal = function () {
+    modal.classList.add("hidden");
+    overlay.classList.add("hidden");
+};
+
+// open modal function
+const openModal = function () {
+    modal.classList.remove("hidden");
+    overlay.classList.remove("hidden");
+};
 
 
 function DBToJSON() {
@@ -112,9 +131,11 @@ var currentUrl = window.location.href;
 currentUrl = currentUrl.replace('/retosPage/regularUser/index.html', '');
 
 goBack.addEventListener('click', () => {
-    const newPath = '/mainPage/index.html';
+    /* const newPath = '/mainPage/index.html';
     const newUrl = `${currentUrl}${newPath}`;
-    window.location.href = newUrl;
+    window.location.href = newUrl; */
+
+    window.location.href = window.location.href.replace("/retosPage/regularUser/", "/mainPage/");
 });
 
 accept.addEventListener('click', () => {
@@ -158,4 +179,78 @@ accept.addEventListener('click', () => {
             onlyOnce: true,
         }
     );
+    closeModal();
 });
+
+
+cancel.addEventListener('click', () => {
+    const placeValue = document.getElementById('placesList');
+    const userName = localStorage.getItem('userName');
+    const userEmail = localStorage.getItem('userEmail');
+    const userType = localStorage.getItem('userType');
+
+    // Modify the currentChallenge
+    const dbRef = ref(db, "Users");
+    onValue(
+        dbRef,
+        (snapshot) => {
+            snapshot.forEach((childSnapshot) => {
+                const childKey = childSnapshot.key;
+                const childData = childSnapshot.val();
+
+                if (userName == childData.name && userEmail == childData.email) {
+                    var data = childData.data;
+                    data.currentChallenge = 'null';
+                    localStorage.setItem('currentChallengeAccepted', 'null');
+                    //console.log(childKey, childData);
+
+                    update(ref(db, "Users/" + childKey), {
+                        data: data,
+                    })
+                        .then(() => {
+                            console.log("Data updated successfully!");
+                            //alert("Data updated successfully!");
+                        })
+                        .catch((error) => {
+                            console.log("Unsuccessful, error: " + error);
+                            localStorage.setItem('currentChallengeAccepted', 'null');
+                            //alert("Unsuccessful, error: " + error);
+                        });
+                }
+            });
+        },
+        {
+            onlyOnce: true,
+        }
+    );
+});
+
+/* start.addEventListener('click', () => {
+    const placeValue = document.getElementById('placesList');
+    const userName = localStorage.getItem('userName');
+    const userEmail = localStorage.getItem('userEmail');
+    const userType = localStorage.getItem('userType');
+
+    // Modify the currentChallenge
+    const dbRef = ref(db, "Users");
+    onValue(
+        dbRef,
+        (snapshot) => {
+            snapshot.forEach((childSnapshot) => {
+                const childKey = childSnapshot.key;
+                const childData = childSnapshot.val();
+
+                if (userName == childData.name && userEmail == childData.email) {
+                    var data = childData.data;
+                    data.currentChallenge = 'null';
+                    if (data.currentChallenge == 'null') {
+                        openModal();
+                    }
+                }
+            });
+        },
+        {
+            onlyOnce: true,
+        }
+    );
+}); */

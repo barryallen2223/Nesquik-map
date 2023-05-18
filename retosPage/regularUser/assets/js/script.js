@@ -129,7 +129,6 @@ function initMap() {
     document.getElementById("cancelCapture").addEventListener("click", () => {
         document.querySelector('.startChall').style.display = 'flex';
         document.querySelector('.cancelChall').style.display = 'none';
-        calculateAndDisplayRoute(directionsService, directionsRenderer);
     });
 }
 
