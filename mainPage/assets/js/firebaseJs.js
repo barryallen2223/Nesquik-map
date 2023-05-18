@@ -36,6 +36,7 @@ const db = getDatabase();
 const logoutBtn = document.getElementById('logoutBtn');
 const challengeBtn = document.getElementById('challengeBtn');
 const markerBtn = document.getElementById('markerBtn');
+const placeName = document.getElementById('placeName');
 
 var searchable = [];
 var positions = [];

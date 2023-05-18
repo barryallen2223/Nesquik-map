@@ -113,7 +113,7 @@ function verifyLogin() {
                     localStorage.setItem('userType', childData.type);
                     localStorage.setItem('userEmail', childData.email);
                     localStorage.setItem('userData', JSON.stringify(childData.data));
-                    window.location.href = window.location.href.replace("/index.html?#", "/mainPage/index.html");
+                    window.location.href = window.location.href.replace("/index.html?#", "/Nesquik-map/mainPage/");
                     matchFound = true;
                     // window.location.href = window.location.href.replace("/index.html?#", "/Nesquik-map/mainPage/");
                     return;

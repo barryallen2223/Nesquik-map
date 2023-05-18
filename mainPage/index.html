@@ -2,12 +2,56 @@
 <html>
 
 <head>
-    <title>NesquikApp</title>
+    <title>FindBy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" type="image/x-icon" href="./assets/icon.ico">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        #placeName {
+            width: 300px;
+            padding: 10px;
+            position: relative;
+            /* Add position relative */
+            z-index: 1;
+            /* Add z-index to place the input above the results */
+        }
+
+        #results {
+            position: absolute;
+            top: 100%;
+            /* Adjust the position relative to the input */
+            left: 10%;
+            width: 80%;
+            /* Modify the width to match the input's width */
+            max-height: 200px;
+            overflow-y: auto;
+            background-color: #2e2e2e;
+            align-items: center;
+            font-weight: 500;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            z-index: 2;
+            /* Add z-index to place the results above the input */
+        }
+
+        #results>li {
+            background-color: #2e2e2e;
+            border-bottom: 2px solid #672979;
+            padding: 7px 5px;
+        }
+
+        #results>li:hover {
+            background-color: #672979;
+        }
+
+        #results>li>a {
+            text-decoration: none;
+            color: white;
+        }
+    </style>
     <script>
         function initMap() {
 
@@ -23,6 +67,189 @@
             const searchable = JSON.parse(localStorage.getItem('searchable'));
             const positions = JSON.parse(localStorage.getItem('positions'));
             const locations = JSON.parse(localStorage.getItem('locations'));
+            console.log('searchable', searchable);
+            const placeNameInput = document.getElementById('placeName');
+            const searchContainer = document.getElementById('searchContainer');
+            const resultsList = document.getElementById('results');
+
+            placeNameInput.addEventListener('input', function () {
+                const searchTerm = placeNameInput.value.toLowerCase();
+                // Clear previous results
+                resultsList.innerHTML = '';
+
+                // Perform search
+                if (searchTerm.length > 0) {
+                    const matchingResults = performSearch(searchTerm);
+                    displayResults(matchingResults);
+                }
+            });
+
+            function performSearch(searchTerm) {
+                return searchable.filter(item => item.toLowerCase().includes(searchTerm));
+            }
+
+            function displayResults(results) {
+                results.forEach(result => {
+                    const li = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.href = '#';
+                    link.id = 'placeSelected';
+                    link.textContent = result;
+                    link.dataset.value = result;
+                    li.appendChild(link);
+                    resultsList.appendChild(li);
+                    //searchbar
+                    link.addEventListener('click', function (event) {
+                        event.preventDefault(); 
+                        // Cleaning the map
+                        markers.forEach(marker => {
+                            marker.setMap(null);
+                        });
+                        markers.length = 0;
+                        const value = this.dataset.value;
+                        locations.forEach(({ position, title, type, address, comments, rating, bathroom, chargePoint, accessibleEntrance }, i) => {
+                            if (title == value) {
+                                const icon = document.createElement("div");
+                                icon.innerHTML = `<i aria-hidden="true" style="font-size: 18px; justify-content: center;" class="fa-solid fa-${type}" title="${type}"></i>`;
+                                // Verde: #2E964F
+                                // Amarillo: #DAA63F
+                                // Rojo: #A22C37
+                                let bath = bathroom;
+                                let charge = chargePoint;
+                                let entrance = accessibleEntrance;
+                                let bgColor, bdColor;
+                                switch (bath + "" + charge + "" + entrance) {
+                                    case "111":
+                                        bgColor = "#3ABD64";
+                                        bdColor = "#2E964F";
+                                        break;
+                                    case "011":
+                                    case "101":
+                                    case "110":
+                                        bgColor = "#DAA63F";
+                                        bdColor = "#C18D25";
+                                        break;
+                                    case "001":
+                                    case "010":
+                                    case "100":
+                                    case "000":
+                                        bgColor = "#C93846";
+                                        bdColor = "#A22C37";
+                                        break;
+                                }
+                                const pinView = new google.maps.marker.PinView({
+                                    glyph: icon,
+                                    glyphColor: "#FFF",
+                                    background: bgColor,
+                                    borderColor: bdColor,
+                                    scale: 1.2,
+                                });
+                                const marker = new google.maps.marker.AdvancedMarkerView({
+                                    position,
+                                    map,
+                                    title: `${title}`,
+                                    content: pinView.element,
+                                });
+
+                                // Add a click listener for each marker, and set up the info window.
+                                marker.addListener("click", ({ domEvent, latLng }) => {
+                                    const { target } = domEvent;
+                                    const cont = document.querySelector('.container');
+                                    const modalClose = document.querySelector('.btnHide');
+                                    const commentOwner = document.querySelectorAll('.commentOwner');
+                                    const commentContent = document.querySelectorAll('.commentContent');
+
+                                    const sum = rating.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+                                    const average = sum / rating.length;
+                                    var avgRounded = 0.0;
+                                    if (average >= 0 && average < 3.25) {
+                                        avgRounded = Math.floor(average);
+                                    } else if (average >= 3.25 && average < 3.75) {
+                                        avgRounded = 3.5;
+                                    } else {
+                                        avgRounded = Math.ceil(average);
+                                    }
+                                    const fullStars = Math.floor(avgRounded);
+                                    const halfStars = avgRounded - fullStars;
+                                    // Show the modal when a button is clicked
+                                    cont.style.display = 'block';
+                                    document.getElementById('ratingStars').innerHTML = `
+                    <div>
+                        <span id="rating">Puntuación</span>
+                        <br>
+                        ${fullStars > 0 ? `<i aria-hidden="true" class="fa fa-star fa-lg star" title="rating"></i>` : ''}
+                        ${Array(fullStars - 1).fill().map(() => `<i aria-hidden="true" class="fa fa-star fa-lg star" title="rating"></i>`).join('')}
+                        ${halfStars > 0 ? `<i aria-hidden="true" class="fa-solid fa-star-half-stroke fa-lg star" title="rating"></i>` : ''}
+                        <span class="fa-sr-only">rating</span>
+                        ${fullStars == 0 && halfStars == 0 ? `<i aria-hidden="true" class="fa-regular fa-star fa-lg star" title="rating"></i>` : ''}
+                    </div>`;
+                                    document.getElementById('bathroom').innerHTML = `
+                        <span>Baño accesible</span>
+                        <i aria-hidden="true" class="fa-solid fa-toilet fa-lg bathroom" title="bathroom"></i>
+                        ${bathroom ? `<i aria-hidden="true" class="fa fa-check-circle fa-lg check-circle" title="bath"></i>` : `<i aria-hidden="true" class="fa fa-times-circle fa-lg times-circle" title="bath"></i>`}
+                        <span class="fa-sr-only">bathroom</span>`;
+                                    document.getElementById('chargePoint').innerHTML = `
+                        <span>Puntos de carga</span>
+                        <i aria-hidden="true" class="fa-solid fa-bolt-lightning fa-lg chargePoint" title="chargePoint"></i>
+                        ${chargePoint ? `<i aria-hidden="true" class="fa fa-check-circle fa-lg check-circle" title="charge"></i>` : `<i aria-hidden="true" class="fa fa-times-circle fa-lg times-circle" title="charge"></i>`}
+                        <span class="fa-sr-only">chargePoint</span>`;
+                                    document.getElementById('accessibleEntrance').innerHTML = `
+                        <span>Entrada accesible</span>
+                        <i aria-hidden="true" class="fa fa-wheelchair fa-lg wheelchair" title="ramp"></i>
+                        ${accessibleEntrance ? `<i aria-hidden="true" class="fa fa-check-circle fa-lg check-circle" title="ramp"></i>` : `<i aria-hidden="true" class="fa fa-times-circle fa-lg times-circle" title="ramp"></i>`}
+                        <span class="fa-sr-only">ramp</span>`;
+                                    document.querySelector('.placeName').textContent = title;
+                                    document.querySelector('.placeAddress').textContent = address;
+                                    const commentsContainer = document.querySelector('.commentsContainer');
+                                    commentsContainer.innerHTML = '';
+
+                                    comments.forEach((comment) => {
+                                        const [owner, content] = comment.split(' | ');
+
+                                        const ownerEl = document.createElement('p');
+                                        ownerEl.classList.add('commentOwner');
+                                        ownerEl.textContent = owner;
+
+                                        const contentEl = document.createElement('p');
+                                        contentEl.classList.add('commentContent');
+                                        contentEl.textContent = content;
+
+                                        const imgEl = document.createElement('img');
+                                        const picName = owner.split(' ');
+                                        var picPath = 'assets/images/users/';
+                                        imgEl.classList.add('userImage');
+                                        imgEl.setAttribute('src', picPath.concat(picName[0], '.png'));
+                                        imgEl.setAttribute('alt', 'User Image');
+
+                                        const commentsWrapper = document.createElement('div');
+                                        commentsWrapper.classList.add('commentInfo');
+                                        commentsWrapper.appendChild(imgEl);
+                                        commentsWrapper.appendChild(ownerEl);
+                                        commentsWrapper.appendChild(contentEl);
+
+                                        commentsContainer.appendChild(commentsWrapper);
+                                    });
+
+
+                                    modalClose.addEventListener('click', () => {
+                                        cont.style.display = 'none';
+                                    });
+
+                                    infoWindow.close();
+                                    infoWindow.setContent(marker.title);
+                                    //infoWindow.open(marker.map, marker);
+                                });
+                                // Add each marker to the array
+                                markers.push(marker);
+
+                            }
+                        });
+
+                    });
+                });
+            }
+
+
             //console.log(locations);
             const map = new google.maps.Map(document.getElementById("map"), options);
             const icon = document.createElement("div");
@@ -626,10 +853,12 @@
 <body>
     <header>
         <h1>FindBy</h1>
-        <div class="search-container">
-            <input type="text" placeholder="Search place...">
+        <div class="search-container" id="search-container">
+            <input type="text" id="placeName" placeholder="Buscar marcador...">
             <i class="fa fa-search"></i>
         </div>
+        <ul id="results"></ul>
+
         <nav>
             <a href="#" id="allBtn">Todos <i class="fa-solid fa-globe"></i></a>
             <a href="#" id="bathBtn">Baños accesibles <i class="fa-solid fa-toilet"></i></a>
