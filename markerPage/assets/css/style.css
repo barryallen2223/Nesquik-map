@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -56,7 +55,7 @@ input:checked+.slider:before {
 }
 
 input:checked+.slider {
-    background-color: #ff278c;
+    background-color: #7F00A2;
 }
 
 .main {
@@ -120,7 +119,7 @@ button {
     justify-content: center;
     display: block;
     color: #fff;
-    background-color: #ff278c;
+    background-color: #7F00A2;
     font-size: 1em;
     font-weight: bold;
     margin-top: 30px;
@@ -131,7 +130,7 @@ button {
 }
 
 button:hover {
-    background-color: #ec1479;
+    background-color: #481b55;
 }
 
 .rating {
@@ -149,7 +148,7 @@ button:hover {
     position: relative;
     width: 1.1em;
     font-size: 30px;
-    color: palevioletred;
+    color: #985ea8;
     cursor: pointer;
 }
 
@@ -170,4 +169,64 @@ button:hover {
 
 .rating:hover>input:checked~label:before {
     opacity: 0.4;
+}
+
+.inputContainer {
+    width: 60%;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    background-color: #e0dede;
+    border-radius: 20px;
+    padding: 0px 10px;
+    position: relative;
+}
+
+.commentsInput {
+    width: 80%;
+    height: 40px;
+    resize: none;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 16px;
+    padding: 2px 5px;
+    /* Adjusted padding */
+}
+
+.infoContainer {
+    position: absolute;
+    top: 50%;
+    /* Vertically centering */
+    transform: translateY(-50%);
+    /* Vertically centering */
+    right: 0;
+    display: flex;
+    align-items: center;
+}
+
+.fa-circle-info {
+    color: #7F00A2;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.infoTooltip {
+    width: 200px;
+    background-color: #481b55;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    position: absolute;
+    top: -45px;
+    right: 20px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: whitesmoke;
+}
+
+.infoContainer:hover .infoTooltip {
+    visibility: visible;
+    opacity: 1;
 }

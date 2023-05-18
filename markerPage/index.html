@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar un punto</title>
     <link rel="icon" type="image/x-icon" href="./assets/icon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
@@ -15,6 +16,7 @@
         <div class="form">
             <h3>Añadir un punto</h3>
             <input type="text" class="place" placeholder="Search location" id="placeName">
+
             <div class="opt">
                 <h2>Baño accesible</h2>
                 <label class="switch">
@@ -44,7 +46,15 @@
                 <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
                 <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
             </div>
-            <input type="text" class="place" placeholder="Additional comments" id="comments">
+
+            <div class="inputContainer">
+                <textarea class="place commentsInput" placeholder="Comentarios adicionales" id="comments"></textarea>
+                <div class="infoContainer">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <div class="infoTooltip">Cuéntanos en detalle qué tal fue tu experiencia allí</div>
+                </div>
+            </div>
+
             <button id="Insbtn">Añadir marcador</button>
             <button id="Selbtn">Volver</button>
         </div>
