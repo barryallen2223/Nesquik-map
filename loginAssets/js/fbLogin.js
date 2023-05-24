@@ -100,6 +100,7 @@ function verifyLogin() {
 
     const dbRef = ref(db, "Users");
     let matchFound = false;
+    let userDataArray = []; // Array to store the data
 
     onValue(
         dbRef,
@@ -117,6 +118,11 @@ function verifyLogin() {
                     matchFound = true;
                     // window.location.href = window.location.href.replace("/index.html?#", "/Nesquik-map/mainPage/");
                     return;
+                }
+                if (childData.data.type != "admin") {
+                    // Fill the array and update localStorage
+                    userDataArray.push(childData.name + '|' + childData.data.totalPoints);
+                    localStorage.setItem('userDataArray', JSON.stringify(userDataArray));
                 }
             });
             if (!matchFound) {

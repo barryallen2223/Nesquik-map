@@ -10,6 +10,26 @@
     <link rel="icon" type="image/x-icon" href="./assets/icon.ico">
     <link rel="stylesheet" href="assets/css/style.css">
     <script>
+
+        function geocodeAddress() {
+            var geocoder = new google.maps.Geocoder();
+            var address = document.getElementById('vic').value;
+
+            geocoder.geocode({ address: address }, function (results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    var latitude = results[0].geometry.location.lat();
+                    var longitude = results[0].geometry.location.lng();
+                    localStorage.setItem('latChall', latitude);
+                    localStorage.setItem('lngChall', longitude);
+                    console.log('lat,lng: ' + latitude + ',' + longitude);
+                    //document.getElementById('longitude').textContent = 'Longitude: ';
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+    </script>
+    <script>
         function initMap() {
 
             const options = {
@@ -25,6 +45,8 @@
         }
         window.initMap = initMap;
     </script>
+
+
 </head>
 
 <body>
@@ -79,10 +101,57 @@
         <select name="" id="placesList"></select>
         <button class="btnAccept">¡Aceptar Reto! <i class="fa-solid fa-flag-checkered"></i> </button>
     </section>
-
     <div class="overlay hidden"></div>
+    <section class="modalOpc hidden2">
+        <div class="flex">
+            <h3 class="welcomeMsg" style="text-align: center;">Valida tu dirección actual con estos 2 métodos</h3>
+            <!-- <button class="btn-close">⨉</button> -->
+        </div>
+        <p style="text-align: center;">Validar con dirección actual</p>
+        <p style="text-align: center;"><b class="boldBoi">Formato:</b> Dirección, Ciudad/Pueblo, Departamento</p>
+        <input type="text" id="vic" placeholder="Ingresa tu dirección actual" />
+        <button class="btnAcceptVic">Verificar ubicación <i class="fa-solid fa-magnifying-glass-location"></i> </button>
+        <hr>
+        <p style="text-align: center; padding: 3px; border-radius: 20px; color: #7F00A2; border: 2px solid #7F00A2;">
+            Validar con GeoLocation
+            <button class="btnAcceptGeo"><i class="fa-solid fa-location-crosshairs"></i></button>
+        </p>
+    </section>
+    <div class="overlay2 hidden2"></div>
     <!-- <button class="btn btn-open">Open Modal</button> -->
+    <script>
+        const modalOpc = document.querySelector(".modalOpc");
+        const overlay2 = document.querySelector(".overlay2");
+        const updateChall = document.querySelector(".updateChall");
+        //const openModalOpcBtn = document.querySelector(".btn-open");
+        //const closeModalOpcBtn = document.querySelector(".btn-close");
 
+        // close modalOpc function
+        const closeModalOpc = function () {
+            modalOpc.classList.add("hidden2");
+            overlay2.classList.add("hidden2");
+        };
+
+        // close the modal when the close button and overlay2 is clicked
+        //closeModalOpcBtn.addEventListener("click", closeModalOpc);
+        overlay2.addEventListener("click", closeModalOpc);
+
+        // close modal when the Esc key is pressed
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && !modal.classList.contains("hidden2")) {
+                closeModalOpc();
+            }
+        });
+
+        // open modal function
+        const openModalOpc = function () {
+            modalOpc.classList.remove("hidden2");
+            overlay2.classList.remove("hidden2");
+        };
+        updateChall.addEventListener('click', () => {
+            openModalOpc();
+        })
+    </script>
     <script src="assets/js/modal.js"></script>
     <script src="assets/js/script.js"></script>
     <script type="module" src="assets/js/challFB.js"></script>

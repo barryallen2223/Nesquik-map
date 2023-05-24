@@ -35,6 +35,8 @@ window.addEventListener('load', function () {
     const placesList = document.getElementById("placesList");
     const places = JSON.parse(localStorage.getItem('CTF'));
     const getCurrentChall = localStorage.getItem('currentChallengeAccepted');
+    const points = localStorage.getItem('pointsPerChallenge');
+    
     const placesKeys = Object.keys(places);
     placesKeys.forEach(place => {
         const option = document.createElement("option");
@@ -131,7 +133,7 @@ function initMap() {
         document.querySelector('.cancelChall').style.display = 'none';
     });
 }
-
+let list = [];
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
     const waypts = [], opts = [];
     var placeArray = [];
@@ -224,13 +226,14 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
                 var onlyVicStart = (route.legs[i].start_address).split(',', 2);
                 var onlyVicEnd = (route.legs[i].end_address).split(',', 2);
                 const routeSegment = i + 1;
-
+                list.push(onlyVicStart + '|' + onlyVicEnd);
                 summaryPanel.innerHTML +=
                     "<span class='nroTramo'>Tramo # " + routeSegment + "</span><br>";
                 summaryPanel.innerHTML += "Desde <span class='firstOne'>" + onlyVicStart + "</span> hacia ";
                 summaryPanel.innerHTML += "<span class='secondOne'>" + onlyVicEnd + "</span><br>";
                 summaryPanel.innerHTML += "<span class='dst'>Distancia: </span>" + route.legs[i].distance.text + "<br><br>";
             }
+            localStorage.setItem('placesListChallenge', JSON.stringify(list));
         })
         .catch((e) => window.alert("Directions request failed due to " + e));
 }
