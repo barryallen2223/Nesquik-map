@@ -203,6 +203,7 @@ cancel.addEventListener('click', () => {
                 if (userName == childData.name && userEmail == childData.email) {
                     var data = childData.data;
                     data.currentChallenge = 'null';
+                    data.pointsPerChallenge = 0;
                     localStorage.setItem('currentChallengeAccepted', 'null');
                     //console.log(childKey, childData);
 
@@ -380,6 +381,7 @@ updateCapture.addEventListener('click', () => {
                                             }
                                         );
                                         alert('Felicidades! Haz completado el reto ', document.getElementById('titleChall'));
+                                        location.reload(true);
                                     }
                                     localStorage.setItem('pointsPerChallenge', data.pointsPerChallenge);
                                     //console.log(parseInt(localStorage.getItem('actualChallInd')));
