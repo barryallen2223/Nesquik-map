@@ -260,7 +260,7 @@ cancel.addEventListener('click', () => {
 
 function geocodeAddress(address, callback) {
     var geocoder = new google.maps.Geocoder();
-
+    console.log('Address: ', address);
     geocoder.geocode({ address: address }, function (results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
             var latitude = results[0].geometry.location.lat();
@@ -273,19 +273,22 @@ function geocodeAddress(address, callback) {
 }
 
 updateCapture.addEventListener('click', () => {
+    var currInd = parseInt(localStorage.getItem('actualChallInd'));
     const plList = JSON.parse(localStorage.getItem('placesListChallenge'));
-    var splitArray = plList[0].split('|');
+    var splitArray = plList[currInd].split('|');
     var start = splitArray[0];
     var end = splitArray[1];
     var address = document.getElementById('vic').value;
     var pointLat, pointLng, userLat, userLng;
-    geocodeAddress(start + ', Antioquia', function (resultLat, resultLng) {
+    console.log('start: ', (start + ', Medellin, Antioquia'), ', end: ', end);
+    geocodeAddress(start + ', Medellin, Antioquia', function (resultLat, resultLng) {
         pointLat = resultLat;
         pointLng = resultLng;
-
+        console.log('pointLat: ', pointLat, ', pointLng: ', pointLng);
         geocodeAddress(address, function (resultUserLat, resultUserLng) {
             userLat = resultUserLat;
             userLng = resultUserLng;
+            console.log('userLat: ', userLat, ', userLng: ', userLng);
             validatePosition(pointLat, pointLng, userLat, userLng, function (result) {
                 if (result) {
                     const userName = localStorage.getItem('userName');
@@ -304,10 +307,28 @@ updateCapture.addEventListener('click', () => {
                                 if (userName == childData.name && userEmail == childData.email) {
                                     var data = childData.data;
                                     data.pointsPerChallenge += 50;
-                                    localStorage.setItem('pointsPerChallenge', data.pointsPerChallenge);
-                                    //console.log(placeValue.value);
-                                    //console.log(childKey, childData);
 
+                                    var element = document.getElementById('pointsShow');
+                                    var currentText = element.textContent;
+                                    // Extract the number from the text using regular expressions
+                                    var regex = /(\d+)/;
+                                    var matches = regex.exec(currentText);
+                                    if (matches) {
+                                        // Convert the matched number to a JavaScript number
+                                        var currentNumber = parseInt(matches[0]);
+                                        // Add 50 to the number
+                                        var newNumber = currentNumber + 50;
+                                        // Update the content of the element
+                                        element.textContent = newNumber + " pts";
+                                    }
+                                    var currChallInd = parseInt(localStorage.getItem('actualChallInd'));
+                                    if (currChallInd < 4) {
+                                        localStorage.setItem('actualChallInd', (currChallInd+1));
+                                    } else {
+                                        localStorage.setItem('actualChallInd', 0);
+                                    }
+                                    localStorage.setItem('pointsPerChallenge', data.pointsPerChallenge);
+                                    //console.log(parseInt(localStorage.getItem('actualChallInd')));
                                     update(ref(db, "Users/" + childKey), {
                                         data: data,
                                     })

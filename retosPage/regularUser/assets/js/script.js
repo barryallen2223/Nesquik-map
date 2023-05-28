@@ -29,6 +29,7 @@ const openModal = function () {
 //openModalBtn.addEventListener("click", openModal);
 
 window.addEventListener('load', function () {
+    //localStorage.setItem('actualChallInd', 0);
     const userName = localStorage.getItem('userName');
     const h3Element = document.querySelector('.userName');
     const msg = document.querySelector('.welcomeMsg');
