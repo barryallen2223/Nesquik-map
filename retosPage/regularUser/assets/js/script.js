@@ -29,7 +29,7 @@ const openModal = function () {
 //openModalBtn.addEventListener("click", openModal);
 
 window.addEventListener('load', function () {
-    //localStorage.setItem('actualChallInd', 0);
+    localStorage.setItem('actualChallInd', 0);
     const userName = localStorage.getItem('userName');
     const h3Element = document.querySelector('.userName');
     const msg = document.querySelector('.welcomeMsg');
@@ -37,7 +37,7 @@ window.addEventListener('load', function () {
     const places = JSON.parse(localStorage.getItem('CTF'));
     const getCurrentChall = localStorage.getItem('currentChallengeAccepted');
     const points = localStorage.getItem('pointsPerChallenge');
-    
+
     const placesKeys = Object.keys(places);
     placesKeys.forEach(place => {
         const option = document.createElement("option");
@@ -45,15 +45,15 @@ window.addEventListener('load', function () {
         option.text = place;
         placesList.appendChild(option);
     });
-    
+
     h3Element.textContent = userName;
     msg.textContent += userName + "!";
     var data = JSON.parse(localStorage.getItem('userData'));
-    
+
     document.getElementById('pointsShow').innerHTML = data['pointsPerChallenge'] + " pts";
     if (data['currentChallenge'] == 'null' && getCurrentChall == 'null') {
         openModal();
-    } else if(getCurrentChall == 'null' || getCurrentChall == null) {
+    } else if (getCurrentChall == 'null' || getCurrentChall == null) {
         openModal();
     }
     else if (getCurrentChall != 'null') {
@@ -66,6 +66,23 @@ var state = 'start';
 const startBtn = document.getElementById('startCapture');
 const calcelBtn = document.getElementById('cancelCapture');
 const updateBtn = document.getElementById('updateCapture');
+
+updateBtn.addEventListener('click', () => {
+    var currInd = parseInt(localStorage.getItem('actualChallInd'));
+    //console.log(currInd);
+    var element = document.querySelector('h3.welcomeMsg#trackTitle');
+    var currentText = element.textContent;
+    var regex = /(\d+)$/;
+    var matches = regex.exec(currentText);
+
+    if (matches) {
+        var currentNumber = matches[0];
+        var newNumber = currInd;
+        var newText = currentText.replace(regex, newNumber);
+        element.textContent = newText;
+    }
+
+});
 
 function validatePosition(pointLat, pointLng) {
     // Define the coordinates of the point you want to check against

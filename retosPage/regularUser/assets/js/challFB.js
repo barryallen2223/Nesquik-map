@@ -314,18 +314,72 @@ updateCapture.addEventListener('click', () => {
                                     var regex = /(\d+)/;
                                     var matches = regex.exec(currentText);
                                     if (matches) {
-                                        // Convert the matched number to a JavaScript number
                                         var currentNumber = parseInt(matches[0]);
-                                        // Add 50 to the number
                                         var newNumber = currentNumber + 50;
-                                        // Update the content of the element
                                         element.textContent = newNumber + " pts";
                                     }
                                     var currChallInd = parseInt(localStorage.getItem('actualChallInd'));
-                                    if (currChallInd < 4) {
-                                        localStorage.setItem('actualChallInd', (currChallInd+1));
-                                    } else {
+                                    console.log('currChallInd: ', currChallInd, ', currInd: ', (plList.length-1));
+                                    if (currChallInd < (plList.length-1)) {
+                                        localStorage.setItem('actualChallInd', (currChallInd + 1));
+                                        var element = document.querySelector('h3.welcomeMsg#trackTitle');
+                                        var currentText = element.textContent;
+                                        var regex = /(\d+)$/;
+                                        var matches = regex.exec(currentText);
+
+                                        if (matches) {
+                                            var currentNumber = matches[0];
+                                            var newNumber = (currChallInd + 1);
+                                            var newText = currentText.replace(regex, newNumber);
+                                            element.textContent = newText;
+                                        }
+                                    } else if (currChallInd == (plList.length-1)) {
                                         localStorage.setItem('actualChallInd', 0);
+
+                                        // Apply the points to the user
+                                        // Change the current challenge to null
+                                        const placeValue = document.getElementById('placesList');
+                                        const userName = localStorage.getItem('userName');
+                                        const userEmail = localStorage.getItem('userEmail');
+                                        const userType = localStorage.getItem('userType');
+
+                                        // Modify the currentChallenge
+                                        const dbRef = ref(db, "Users");
+                                        onValue(
+                                            dbRef,
+                                            (snapshot) => {
+                                                snapshot.forEach((childSnapshot) => {
+                                                    const childKey = childSnapshot.key;
+                                                    const childData = childSnapshot.val();
+
+                                                    if (userName == childData.name && userEmail == childData.email) {
+                                                        var data = childData.data;
+                                                        data.currentChallenge = 'null';
+                                                        data.totalPoints += data.pointsPerChallenge;
+                                                        data.pointsPerChallenge = 0;
+                                                        localStorage.setItem('currentChallengeAccepted', 'null');
+                                                        //console.log(childKey, childData);
+
+                                                        update(ref(db, "Users/" + childKey), {
+                                                            data: data,
+                                                        })
+                                                            .then(() => {
+                                                                console.log("Data updated successfully!");
+                                                                //alert("Data updated successfully!");
+                                                            })
+                                                            .catch((error) => {
+                                                                console.log("Unsuccessful, error: " + error);
+                                                                localStorage.setItem('currentChallengeAccepted', 'null');
+                                                                //alert("Unsuccessful, error: " + error);
+                                                            });
+                                                    }
+                                                });
+                                            },
+                                            {
+                                                onlyOnce: true,
+                                            }
+                                        );
+                                        alert('Felicidades! Haz completado el reto ', document.getElementById('titleChall'));
                                     }
                                     localStorage.setItem('pointsPerChallenge', data.pointsPerChallenge);
                                     //console.log(parseInt(localStorage.getItem('actualChallInd')));
@@ -348,8 +402,9 @@ updateCapture.addEventListener('click', () => {
                             onlyOnce: true,
                         }
                     );
+                    alert('Enhorabuena! Sigue asi')
                 } else {
-                    console.log('Oops! Al parecer aun no estas en el lugar indicado');
+                    alert('Oops! Al parecer aun no estas en el lugar indicado');
                 }
             });
         });
