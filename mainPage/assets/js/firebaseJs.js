@@ -35,6 +35,7 @@ const db = getDatabase();
 
 const logoutBtn = document.getElementById('logoutBtn');
 const challengeBtn = document.getElementById('challengeBtn');
+const shopBtn = document.getElementById('shopBtn');
 const markerBtn = document.getElementById('markerBtn');
 const placeName = document.getElementById('placeName');
 
@@ -143,6 +144,13 @@ challengeBtn.addEventListener('click', () => {
         window.location.href = newUrl; */
         window.location.href = window.location.href.replace("/mainPage/", "/retosPage/regularUser/");
     }
+});
+
+shopBtn.addEventListener('click', () => {
+    /* const newPath = 'markerPage/';
+    const newUrl = `${currentUrl}${newPath}`;
+    window.location.href = newUrl; */
+    window.location.href = window.location.href.replace("/mainPage/", "/shopPage/");
 });
 
 markerBtn.addEventListener('click', () => {

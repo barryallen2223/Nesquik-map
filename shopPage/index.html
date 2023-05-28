@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <title>Shop</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" type="image/x-icon" href="./assets/icon.ico">
+</head>
+
+<body>
+    <header>
+        <h1 class="headerTitle">FindBy</h1>
+    </header>
+    <div id="left-panel">
+        <div class="section section-user">
+            <div class="user-info">
+                <img src="https://raw.githubusercontent.com/barryallen2223/Nesquik-map/master/mainPage/assets/images/regularUser.png" id="userPicType" alt="User Picture">
+                <h3 id="userNameType">Bolita</h3>
+            </div>
+        </div>
+        <div class="section section-marker">
+            <p>Nuevo marcador <i class="fa-solid fa-location-dot"></i></p>
+            <button class="markerBtn" id="markerBtn"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+        <div class="section section-challenges">
+            <button class="challengeBtn" id="challengeBtn">Retos <i class="fa-solid fa-flag"></i></button>
+        </div>
+        <div class="section section-leaderboard">
+            <h3>Tabla de clasificación</h3>
+            <hr>
+            <div class="leaderboard-users">
+                <div class="user">
+                    <span class="user-position-1"><i class="fa-solid fa-medal"></i></span>
+                    <span class="user-name">John Deez</span>
+                    <span class="user-points">1000 points</span>
+                </div>
+                <div class="user">
+                    <span class="user-position-2"><i class="fa-solid fa-medal"></i></span>
+                    <span class="user-name">Jane Smith</span>
+                    <span class="user-points">750 points</span>
+                </div>
+                <div class="user">
+                    <span class="user-position-3"><i class="fa-solid fa-medal"></i></span>
+                    <span class="user-name">Bob Johnson</span>
+                    <span class="user-points">500 points</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section section-logout">
+            <button class="logoutBtn" id="logoutBtn">Volver <i class="fa-solid fa-house"></i></button>
+        </div>
+    </div>
+    <div id="right-panel">
+        <div class="main-container">
+            <div class="heading">
+                <h1 class="heading__title">Tienda de Puntos</h1>
+                <p class="heading__credits">Selecciona alguno de los cupones disponibles para canjearlos y obtener tu
+                    recompensa</p>
+            </div>
+            <div class="cards">
+                <div class="card card-1">
+                    <div class="overlay">
+                        <div class="card__icon"><i class="fa-solid fa-burger"></i> | 10.000 pts</div>
+                        <h2 class="card__title">$15000 Rappi créditos</h2>
+                        <p class="card__apply">
+                            <a class="card__link" href="#" id="rappiCoupon"><i class="fa-solid fa-cart-shopping"></i> Canjear puntos <i
+                                    class="fas fa-arrow-right"></i></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="card card-2">
+                    <div class="overlay">
+                        <div class="card__icon"><i class="fa-solid fa-burger"></i> | 50.000 pts</div>
+                        <h2 class="card__title">Papas medianas + gaseosa</h2>
+                        <p class="card__apply">
+                            <a class="card__link" href="#" id="McCoupon"><i class="fa-solid fa-cart-shopping"></i> Canjear puntos <i
+                                    class="fas fa-arrow-right"></i></a>
+                        </p>
+                    </div>
+
+                </div>
+                <div class="card card-3">
+                    <div class="overlay">
+                        <div class="card__icon"><i class="fa-solid fa-burger"></i> | 12.000 pts</div>
+                        <h2 class="card__title">50% descuento en footlong</h2>
+                        <p class="card__apply">
+                            <a class="card__link" href="#" id="subCoupon"><i class="fa-solid fa-cart-shopping"></i> Canjear puntos <i
+                                    class="fas fa-arrow-right"></i></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="card card-4">
+                    <div class="overlay">
+                        <div class="card__icon"><i class="fa-solid fa-burger"></i> | 12.000 pts</div>
+                        <h2 class="card__title">40% en Frisnacks pequeños</h2>
+                        <p class="card__apply">
+                            <a class="card__link" href="#" id="frisCoupon"><i class="fa-solid fa-cart-shopping"></i> Canjear puntos <i
+                                    class="fas fa-arrow-right"></i></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="card card-5">
+                    <div class="overlay">
+                        <div class="card__icon"><i class="fa-solid fa-tag"></i> | 36.000 pts</div>
+                        <h2 class="card__title">Bono de $50.000</h2>
+                        <p class="card__apply">
+                            <a class="card__link" href="#" id="falaCoupon"><i class="fa-solid fa-cart-shopping"></i> Canjear puntos <i
+                                    class="fas fa-arrow-right"></i></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="card card-6">
+                    <div class="overlay">
+                        <div class="card__icon"><i class="fa-solid fa-burger"></i> | 14.000 pts</div>
+                        <h2 class="card__title">Salsa Qbano gratis</h2>
+                        <p class="card__apply">
+                            <a class="card__link" href="#" id="qbCoupon"><i class="fa-solid fa-cart-shopping"></i> Canjear puntos <i
+                                    class="fas fa-arrow-right"></i></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/script.js"></script>
+    <script type="module" src="assets/js/FBshop.js"></script>
+</body>
+
+</html>

@@ -115,12 +115,27 @@ nav a i {
     color: var(--white);
     font-size: 0.96em;
     font-weight: bold;
+    margin-right: 20px;
 }
 
 .challengeBtn:hover {
     background-color: var(--buttonsHover);
 }
 
+.shopBtn {
+    width: 60%;
+    height: 35px;
+    border: none;
+    border-radius: 30px;
+    background-color: var(--buttons);
+    color: var(--white);
+    font-size: 0.96em;
+    font-weight: bold;
+}
+
+.shopBtn:hover {
+    background-color: var(--buttonsHover);
+}
 .section {
     margin-bottom: 10px;
     border-radius: 4px;

@@ -1,0 +1,419 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    --bg-color: #1B1B1B;
+    --buttons: #7F00A2;
+    --white: whitesmoke;
+    --buttonsHover: #672979;
+    --leftPanel: #0f0f0f;
+    --sections: #3a3e41;
+    --softPink: #c91df8;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #202020;
+}
+
+.main-container {
+    margin-top: 50px;
+    padding: 30px;
+}
+
+.heading {
+    text-align: center;
+    color: aliceblue;
+}
+
+.heading__title {
+    font-weight: 600;
+}
+
+.heading__credits {
+    margin: 10px 0px;
+    color: #888888;
+    font-size: 25px;
+    transition: all 0.5s;
+}
+
+.heading__link {
+    text-decoration: none;
+}
+
+.heading__credits .heading__link {
+    color: inherit;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    margin: 20px;
+    padding: 20px;
+    width: 500px;
+    min-height: 200px;
+    display: grid;
+    grid-template-rows: 20px 50px 1fr 50px;
+    border-radius: 10px;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
+    transition: all 0.2s;
+}
+
+.card:hover {
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
+    transform: scale(1.01);
+}
+
+.card__link,
+.card__exit,
+.card__icon {
+    position: relative;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.card__link::after {
+    position: absolute;
+    top: 25px;
+    left: 0;
+    content: "";
+    width: 0%;
+    height: 3px;
+    background-color: rgba(255, 255, 255, 0.6);
+    transition: all 0.5s;
+}
+
+.card__link:hover::after {
+    width: 100%;
+}
+
+.card__exit {
+    grid-row: 1/2;
+    justify-self: end;
+}
+
+.card__icon {
+    grid-row: 2/3;
+    font-size: 30px;
+}
+
+.card__title {
+    grid-row: 3/4;
+    font-weight: 400;
+    color: #ffffff;
+}
+
+.card__apply {
+    grid-row: 4/5;
+    align-self: center;
+}
+
+.overlay {
+    position: absolute;
+    padding-top: 30px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(127, 0, 162, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 10px;
+}
+
+.card-1 {
+    position: relative;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/b/b2/Rappi_backgr_logo.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    /* background: radial-gradient(#1fe4f5, #3fbafe); */
+}
+
+.card-1:hover .overlay {
+    opacity: 1;
+}
+
+.card-2 {
+    position: relative;
+    background: url('https://1000logos.net/wp-content/uploads/2017/03/symbol-McDonalds.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    /* background: radial-gradient(#fbc1cc, #fa99b2); */
+}
+
+.card-2:hover .overlay {
+    opacity: 1;
+}
+
+.card-3 {
+    position: relative;
+    background: url('https://www.designmantic.com/blog/wp-content/uploads/2016/08/SubWayNewLogo.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    /* background: radial-gradient(#76b2fe, #b69efe); */
+}
+
+.card-3:hover .overlay {
+    opacity: 1;
+}
+
+.card-4 {
+    position: relative;
+    background: url('https://cdn.myportfolio.com/f869bd3e05e75efd3df5aae3c5809aca/83ac2963-4b5e-4748-b853-48aaa8731d25_rw_1920.png?h=3a117583811adc2cd069237024e1e103');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    /* background: radial-gradient(#60efbc, #58d5c9); */
+}
+
+.card-4:hover .overlay {
+    opacity: 1;
+}
+
+.card-5 {
+    position: relative;
+    background: url('https://brandemia.org/contenido/subidas/2021/08/11-falabella-com-1200x670.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    /* background: radial-gradient(#f588d8, #c0a3e5); */
+}
+
+.card-5:hover .overlay {
+    opacity: 1;
+}
+
+.card-6 {
+    position: relative;
+    background: url('https://www.comfenalcovalle.com.co/wp-content/uploads/2021/10/logo-qbano-01-1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    /* background: radial-gradient(#f588d8, #c0a3e5); */
+}
+
+.card-6:hover .overlay {
+    opacity: 1;
+}
+
+@media (max-width: 1600px) {
+    .cards {
+        justify-content: center;
+    }
+}
+
+/* Sticky Header Styles */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10vh;
+    background-color: #1B1B1B;
+    color: #fff;
+    padding: 10px;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerTitle {
+    margin-left: 50px;
+    display: flex;
+    align-items: center;
+}
+
+#left-panel {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 25%;
+    height: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+    overflow: auto;
+    text-align: center;
+    align-items: center;
+    background-color: #0F0F0F;
+}
+
+.markerBtn {
+    width: 20%;
+    height: 35px;
+    border: none;
+    border-radius: 30px;
+    background-color: var(--buttons);
+    color: var(--white);
+    font-size: 0.96em;
+    font-weight: bold;
+}
+
+.markerBtn:hover {
+    background-color: var(--buttonsHover);
+}
+
+.challengeBtn {
+    width: 60%;
+    height: 35px;
+    border: none;
+    border-radius: 30px;
+    background-color: var(--buttons);
+    color: var(--white);
+    font-size: 0.96em;
+    font-weight: bold;
+}
+
+.challengeBtn:hover {
+    background-color: var(--buttonsHover);
+}
+
+.section {
+    margin-bottom: 10px;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.section-user {
+    background-color: var(--sections);
+    color: white;
+    height: 23vh;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.user-info img {
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+}
+
+.section-marker {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--sections);
+    color: white;
+    height: 5.2vh;
+    padding: 25px;
+}
+
+.section-marker p {
+    align-self: center;
+    margin-right: 10px;
+}
+
+.section-challenges {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--sections);
+    color: white;
+    height: 5.2vh;
+    padding: 25px;
+}
+
+.section-leaderboard {
+    background-color: var(--sections);
+    color: white;
+    height: 27vh;
+    padding: 25px;
+}
+
+.section-leaderboard .user {
+    display: flex;
+    justify-content: space-between;
+}
+
+.user-position-1 {
+    color: goldenrod;
+}
+
+.user-position-2 {
+    color: silver;
+}
+
+.user-position-3 {
+    color: #CD7F32;
+}
+
+.section-leaderboard h3 {
+    margin-top: 0;
+}
+
+.section-leaderboard ol {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 10px;
+}
+
+.section-leaderboard ol li {
+    margin-bottom: 5px;
+}
+
+.section-leaderboard hr {
+    border: none;
+    border-top: 2px solid var(--softPink);
+}
+
+.logoutBtn {
+    width: 60%;
+    height: 35px;
+    border: none;
+    border-radius: 30px;
+    background-color: var(--buttons);
+    color: var(--white);
+    font-size: 0.96em;
+    font-weight: bold;
+}
+
+.logoutBtn:hover {
+    background-color: var(--buttonsHover);
+    transition: 0.3s ease-out;
+}
+
+#right-panel {
+    background-color: #202020;
+    top: 82px;
+    width: 75%;
+    height: 100%;
+    box-sizing: border-box;
+    margin-left: 25%;
+    overflow: autox;
+}
